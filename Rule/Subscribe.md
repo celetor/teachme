@@ -106,7 +106,7 @@
       "rulePubDate": "$.time",
       "ruleTitle": "$.title",
       "sourceGroup": "VIP",
-      "sourceIcon": "http://bpic.588ku.com/element_origin_min_pic/17/03/15/221125edc79d24a1269c171d294d528a.jpg",
+      "sourceIcon": "https://gitee.com/alanskycn/yuedu/raw/master/JS/icon.jpg",
       "sourceName": "阅读3.0",
       "sourceUrl": "https://gitee.com/alanskycn/yuedu/raw/master/JS/RSS/custom/customRss.json"
   }
