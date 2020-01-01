@@ -600,6 +600,5 @@
     }
     ```
 
-  - [点击此处了解订阅源规则](https://gitee.com/alanskycn/yuedu/blob/master/Rule/Subscribe.md)
-  - [阅读原文](https://gitee.com/alanskycn/yuedu/blob/master/Rule/README.md)
+  - [阅读原文](https://celeter.github.io/)
 

@@ -3,6 +3,19 @@
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <!--<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+    <style>
+		body {
+			padding: 10px;
+			background: floralwhite;
+			font-family: sans-serif-Helvetica;
+		}
+
+		img {
+			max-width: 100% !important;
+			width: auto;
+			height: auto;
+		}
+	</style>
 </head>
 <body>
 <div id="navigation">
@@ -22,8 +35,7 @@
             $("#content").html(converter.makeHtml(response));
         });
     }
-</script>
-<script>
+
     function load_Subscribe(){
         $.get("Rule/Subscribe.md", function (response, status, xhr) {
             var converter = new showdown.Converter();
