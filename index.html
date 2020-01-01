@@ -2,6 +2,7 @@
 <head>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://unpkg.com/showdown@1.9.1/dist/showdown.min.js"></script>
 </head>
 <body>
 <div id="navigation">
@@ -23,7 +24,9 @@
 <script>
     function load_Subscribe(){
         $.get("Rule/Subscribe.md", function (response, status, xhr) {
-            $("#content").html(marked(response));
+            var converter = new showdown.Converter();
+            var text = converter.makeHtml(response);
+            $("#content").html(text);
         });
     }
 </script>
