@@ -4,8 +4,32 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-<div id="content">加载中...</div>
-<iframe src="https://www.runoob.com/try/demo_source/frame_c.htm" frameborder="0"></iframe>
-<iframe src="https://gitee.com/alanskycn/yuedu/raw/master/Rule/Subscribe.md" frameborder="0"></iframe>
+<div id="navigation">
+    <li>
+        <button onclick="javascript:load_README();">书源规则</button>
+    </li>
+    <p></p>
+    <li>
+        <button onclick="javascript:load_Subscribe();">订阅源规则</button>
+    </li>
+</div>
+<script>
+    function load_README(){
+        $.get("Rule/README.md", function (response, status, xhr) {
+            $("#content").html(marked(response));
+        });
+    }
+</script>
+<script>
+    function load_Subscribe(){
+        $.get("Rule/Subscribe.md", function (response, status, xhr) {
+            $("#content").html(marked(response));
+        });
+    }
+</script>
+<div id="content">
+    <h3>Legado规则说明</h3>
+    <img src="http://pic.netbian.com/uploads/allimg/190902/204822-156742850260f4.jpg">
+</div>
 </body>
 </html>
