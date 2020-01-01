@@ -1,48 +1,55 @@
+<!DOCTYPE html>
 <html>
+
 <head>
     <link rel="icon" href="https://gitee.com/alanskycn/yuedu/raw/master/JS/favicon.ico">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <!--<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
     <style>
-		body {
-			padding: 10px;
-			background: floralwhite;
-		}
+        body {
+            padding: 10px;
+            background: floralwhite;
+        }
 
-		img {
-			max-width: 100% !important;
-			width: auto;
-			height: auto;
-		}
-	</style>
+        img {
+            max-width: 100% !important;
+            width: auto;
+            height: auto;
+        }
+    </style>
 </head>
-<body>
-<h1>阅读3.0(Legado)规则说明</h1>
-<div id="navigation">
-    <ul>
-    <li><button onclick="javascript:load_README();">书源规则</button></li>
-    <p></p>
-    <li><button onclick="javascript:load_Subscribe();">订阅源规则</button></li>
-    </ul>
-</div>
-<script>
-    function load_README(){
-        $.get("Rule/README.md", function (response, status, xhr) {
-            var converter = new showdown.Converter();
-            $("#content").html(converter.makeHtml(response));
-        });
-    }
 
-    function load_Subscribe(){
-        $.get("Rule/Subscribe.md", function (response, status, xhr) {
-            var converter = new showdown.Converter();
-            $("#content").html(converter.makeHtml(response));
-        });
-    }
-</script>
-<div id="content">
-    <img src="http://pic.netbian.com/uploads/allimg/190902/204822-156742850260f4.jpg">
-</div>
+<body>
+    <h1>阅读3.0(Legado)规则说明</h1>
+    <div id="navigation">
+        <ul>
+            <li><button onclick="javascript:load_README();">书源规则</button>
+                <p></p>
+            </li>
+            <li><button onclick="javascript:load_Subscribe();">订阅源规则</button>
+                <p></p>
+            </li>
+        </ul>
+    </div>
+    <script>
+        function load_README() {
+            $.get("Rule/README.md", function (response, status, xhr) {
+                var converter = new showdown.Converter();
+                $("#content").html(converter.makeHtml(response));
+            });
+        }
+
+        function load_Subscribe() {
+            $.get("Rule/Subscribe.md", function (response, status, xhr) {
+                var converter = new showdown.Converter();
+                $("#content").html(converter.makeHtml(response));
+            });
+        }
+    </script>
+    <div id="content">
+        <img src="http://pic.netbian.com/uploads/allimg/190902/204822-156742850260f4.jpg">
+    </div>
 </body>
+
 </html>
