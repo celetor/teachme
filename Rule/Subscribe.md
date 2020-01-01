@@ -11,10 +11,10 @@
 ------
 
 ### 1、语法说明
-  + 详见[书源规则](https://gitee.com/alanskycn/yuedu/blob/master/Rule/README.md)
+  + 详见[书源规则](https://celeter.github.io/)
 
 ### 2、Legado的特殊规则
-  + 详见[书源规则](https://gitee.com/alanskycn/yuedu/blob/master/Rule/README.md)
+  + 详见[书源规则](https://celeter.github.io/)
 
 ### 3、解析流程
 
@@ -112,5 +112,5 @@
   }
   ```
 
-  - [阅读原文](https://celeter.github.io/)
+- [阅读原文](https://celeter.github.io/)
 
