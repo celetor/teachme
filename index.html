@@ -1,5 +1,6 @@
 <html>
 <head>
+    <link rel="icon" href="https://gitee.com/alanskycn/yuedu/raw/master/JS/favicon.ico">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <!--<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
@@ -19,15 +20,10 @@
 <body>
 <h1>阅读3.0(Legado)规则说明</h1>
 <div id="navigation">
-    <li>
-        <button onclick="javascript:load_README();">书源规则</button>
-    </li>
-    <p></p>
-    <li>
-        <button onclick="javascript:load_Subscribe();">订阅源规则</button>
-    </li>
-    <p></p>
-    <p></p>
+    <ul>
+    <li><button onclick="javascript:load_README();">书源规则</button></li>
+    <li><button onclick="javascript:load_Subscribe();">订阅源规则</button></li>
+    </ul>
 </div>
 <script>
     function load_README(){
