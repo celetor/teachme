@@ -42,13 +42,15 @@
 
 - 根据订阅源的解析，可以发现订阅源有三种：标准RSS源、有列表规则和描述规则的源以及有列表规则无描述规则的源。	
 
-  - [ ] 标准RSS源
+  ▲ 标准RSS源
     - 特征：只填写了`源名称(sourceName)`、`源URL(sourceUrl)`。
     - `图标(sourceIcon)`和`源分组(sourceGroup)`可有可无，不影响解析。
-  - [ ] 有列表规则和描述规则的源
+
+  ▲ 有列表规则和描述规则的源
     - 特征：一定填写了`源名称(sourceName)`、`源URL(sourceUrl)`、`列表规则(ruleArticles)`、`标题规则(ruleTitle)`、`描述规则(ruleDescription)`和`链接规则(ruleLink)`。
     - `列表下一页规则(ruleArticles)`根据实际需求来填写，不填也可以。`图标(sourceIcon)`和`源分组(sourceGroup)`可有可无，不影响解析。
-  - [ ] 有列表规则无描述规则的源
+
+  ▲ 有列表规则无描述规则的源
     - 特征：一定填写了`源名称(sourceName)`、`源URL(sourceUrl)`、`列表规则(ruleArticles)`、`标题规则(ruleTitle)`和`链接规则(ruleLink)`。
     - `列表下一页规则(ruleArticles)`和`内容规则(ruleContent)`根据实际需求来填写，不填也可以。`图标(sourceIcon)`和`源分组(sourceGroup)`可有可无，不影响解析。
 
@@ -62,32 +64,32 @@
     - 必填
     - 名字可重复
 + 图标(sourceIcon)
-  - 可不填
+    - 可不填
 + 源分组(sourceGroup)
-  - 可不填
+    - 可不填
 + 列表规则(ruleArticles)
-  - 根据实际需求填写
-  - 判断是否是标准RSS的标志
+    - 根据实际需求填写
+    - 判断是否是标准RSS的标志
 + 列表下一页规则(ruleArticles)
-  - 根据实际需求填写，一般和`列表规则(ruleArticles)`一起搭配使用
-  - 规则解析的结果必须是字符串
-  - 无页数`{{page}}`，想实现页数加一请使用JS
+    - 根据实际需求填写，一般和`列表规则(ruleArticles)`一起搭配使用
+    - 规则解析的结果必须是字符串
+    - 无页数`{{page}}`，想实现页数加一请使用JS
 + 标题规则(ruleTitle)
-  - 填写`列表规则(ruleArticles)`后，为必填项
+    - 填写`列表规则(ruleArticles)`后，为必填项
 + 时间规则(rulePubDate)
-  - 可不填，根据实际需求填写
+    - 可不填，根据实际需求填写
 + 描述规则(ruleDescription)
-  - 根据实际需求填写
-  - 区分`有列表规则和描述规则的源`和`有列表规则无描述规则的源`的标志
+    - 根据实际需求填写
+    - 区分`有列表规则和描述规则的源`和`有列表规则无描述规则的源`的标志
 + 图片url规则(ruleImage)
-  - 可不填，根据实际需求填写
+    - 可不填，根据实际需求填写
 + 链接规则(ruleLink)
-  - 填写`列表规则(ruleArticles)`后，为必填项
-  - 文章的唯一标识
+    - 填写`列表规则(ruleArticles)`后，为必填项
+    - 文章的唯一标识
 + 内容规则(ruleContent)
-  - 根据实际需求填写，不填打开网页，填写可修改样式
+    - 根据实际需求填写，不填打开网页，填写可修改样式
 + 请求头(header)
-  - 根据实际需求填写
+    - 根据实际需求填写
 
 ### 5、附录
 
