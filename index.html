@@ -1,73 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <link rel="icon" href="https://gitee.com/alanskycn/yuedu/raw/master/JS/favicon.ico">
-    <title>RULE </title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/animate.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="assets/css/style.css" rel="stylesheet">
-
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/plugins.js"></script>
-    <script src="assets/js/init.js"></script>
+    <style>
+        body {
+            padding: 10px;
+            background: floralwhite;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 
-<body id="page-top" class="animated-navigation">
+<body>
     <center><h1>阅读3.0(Legado)规则说明</h1></center>
-    <div class="master-wrapper">
+    <div class="collapse navbar-collapse" id="main-navigation">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown"><a href="javascript:load_README()">书源规则</a></li>
+            <li class="dropdown"><a href="javascript:load_Subscribe()">订阅源规则</a></li>
+        </ul>
 
-        <div class="preloader">
-            <div class="preloader-img">
-                <span class="loading-animation animate-flicker"><img src="assets/img/loading.GIF" alt="loading" /></span>
-            </div>
-        </div>
-
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-fixed-top fadeInDown" data-wow-delay="0.2s">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display
-                <div class="navbar-header page-scroll">
-                    <a class="navbar-brand smoothie" href="index.html">H<span class="theme-accent-color">OM</span>E</a>
-                </div>-->
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="main-navigation">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown"><a href="javascript:load_README()">书源规则</a></li>
-                        <li class="dropdown"><a href="javascript:load_Subscribe()">订阅源规则</a></li>
-                    </ul>
-
-                </div>     
-            </div>
-        </nav>
-
-        <!-- Header
-        <header id="headerwrap" class="halfheight dark-wrapper opaqued parallax" data-parallax="scroll" data-image-src="assets/img/blog/blog4.jpg" data-speed="0.8">
-             <div class="container vertical-center">
-                <div class="intro-text vertical-center text-center smoothie">
-                    <h2 class="fancy wow fadeInDown" data-wow-delay="2s"><span>Everything is Possible</span></h2>
-                    <div class="text-center nopadding white wow fadeIn" data-wow-delay="3.5s">
-                    </div>
-                </div>
-            </div>
-        </header>-->
     </div>
+    <script>
+        function load_README() {
+            $.get("Rule/README.md", function (response, status, xhr) {
+                var converter = new showdown.Converter();
+                $("#content").html(converter.makeHtml(response));
+            });
+        }
 
+        function load_Subscribe() {
+            $.get("Rule/Subscribe.md", function (response, status, xhr) {
+                var converter = new showdown.Converter();
+                $("#content").html(converter.makeHtml(response));
+            });
+        }
+    </script>
     <div id="content">
-        <img class="bk" src="assets/img/portfolio/portfolio8.jpg">
+        <img src="assets/img/portfolio/portfolio8.jpg">
     </div>
-
 </body>
 
 </html>
