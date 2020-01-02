@@ -15,7 +15,8 @@
 
     <!-- Custom CSS -->
     <link href="assets/css/style.css" rel="stylesheet">
-    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/plugins.js"></script>
@@ -62,21 +63,7 @@
             </div>
         </header>
     </div>
-    <script>
-function load_README() {
-    $.get("Rule/README.md", function (response, status, xhr) {
-        var converter = new showdown.Converter();
-        $("#content").html(converter.makeHtml(response));
-    });
-}
 
-function load_Subscribe() {
-    $.get("Rule/Subscribe.md", function (response, status, xhr) {
-        var converter = new showdown.Converter();
-        $("#content").html(converter.makeHtml(response));
-    });
-}
-    </script>
     <div id="content">
     	<center><h1>阅读3.0(Legado)规则说明</h1></center>
     </div>

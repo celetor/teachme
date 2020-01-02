@@ -36,3 +36,17 @@ $(document).ready(function(){
         $(window).trigger('resize');
     });
 });
+
+function load_README() {
+    $.get("Rule/README.md", function (response, status, xhr) {
+        var converter = new showdown.Converter();
+        $("#content").html(converter.makeHtml(response));
+    });
+}
+
+function load_Subscribe() {
+    $.get("Rule/Subscribe.md", function (response, status, xhr) {
+        var converter = new showdown.Converter();
+        $("#content").html(converter.makeHtml(response));
+    });
+}
