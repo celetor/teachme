@@ -20,6 +20,11 @@ body {
     color: #333;    
 }
 
+.bk {
+    max-width: 100% !important;
+    width: 100%;
+}
+
 .master-wrapper {
     overflow: hidden;
 }
