@@ -1,5 +1,5 @@
 ## Legado书源规则说明
-更新时间：2019-12-30
+更新时间：2020-2-21
 ### 概况
 
   - 1、语法说明
@@ -29,8 +29,8 @@
      获取列表的最前面加上负号- 可以使列表倒置,有些网站目录列表是倒的,前面加个负号可变为正的
      @的最后一段为获取内容,如text,textNodes,ownText,href,src,html,all等
      如需要正则替换在最后加上 ##正则表达式##替换内容，替换内容为空时，第二个##可以省略
-     例:class.odd.0@tag.a.0@text|tag.dd.0@tag.h1@text##全文阅读
-     例:class.odd.0@tag.a.0@text&tag.dd.0@tag.h1@text##全文阅读
+     例:class.odd.0@tag.a.0@text||tag.dd.0@tag.h1@text##全文阅读
+     例:class.odd.0@tag.a.0@text&&tag.dd.0@tag.h1@text##全文阅读
     ```
   
     - 标准规范与实现库 [Package org.jsoup.select, CSS-like element selector](https://jsoup.org/apidocs/org/jsoup/select/Selector.html)
