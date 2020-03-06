@@ -1,5 +1,5 @@
 ## Legado书源规则说明
-更新时间：2020-2-21
+更新时间：2020-03-06
 ### 概况
 
   - 1、语法说明
@@ -75,7 +75,7 @@
       
     - 例子见最后的【书源一】的目录页规则，最前面的`-`表示目录倒序，以及【书源二】的目录页规则
     
-  + 正则之独行
+  + 正则之OnlyOne
     - 形式 `##正则表达式##替换内容###`
     - 只能在搜索列表、发现列表、详情页预加载、目录列表之外使用
     - 例子见最后的【书源一】的详情页规则
@@ -124,11 +124,12 @@
          <js>
          (()=>{
          	var ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
-         	var heders = {"User-Agent": ua};
-         	return JSON.stringify(heders);
+         	var headers = {"User-Agent": ua};
+         	return JSON.stringify(headers);
          })()
          </js>
          ```
+         ※其中，`ua`必须保证是`JavaScript`的`String`类型，`JSON.stringify()`才能将`header`转换为字符串。
 
          
 
@@ -149,15 +150,16 @@
          ```
          <js>
          	var ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
-         	var heders = {"User-Agent": ua};
+         	var headers = {"User-Agent": ua};
          	var option = {
          		"charset": "gbk",
-         		"headers": JSON.stringify(heders),
+         		"headers": JSON.stringify(headers),
          		"webView": true
          	};
          	"https://www.baidu.com," + JSON.stringify(option)
          </js>
          ```
+         ※其中，`ua`必须保证是`JavaScript`的`String`类型，`JSON.stringify()`才能将`header`转换为字符串。
 
          
 
@@ -180,17 +182,19 @@
          ```
          <js>
          	var ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
-         	var heders = {"User-Agent": ua};
+         	var headers = {"User-Agent": ua};
+         	var body = "bid="+"10086";
          	var option = {
          		"charset": "gbk",
          		"method": "POST",
-         		"body": "bid=10086",
-         		"headers": JSON.stringify(heders),
+         		"body": String(body),
+         		"headers": JSON.stringify(headers),
          		"webView": true
          	};
          	"https://www.baidu.com," + JSON.stringify(option)
          </js>
          ```
+         ※其中，`ua`和`body`必须保证是`JavaScript`的`String`类型，`JSON.stringify()`才能转换字符串成功。变量是计算得到的尽量都用`String()`强转一下类型。
 
          
 
@@ -525,6 +529,8 @@
 
 - 无脑`{"webView":true}`很方便
 
+- 特别注意用`JSON.stringify()`方法时，需要保证JSON对象的value都是`JavaScript`的`String`类型(在阅读3.0中)
+
 - 附：
 
   - 书源一
@@ -600,5 +606,5 @@
     }
     ```
 
-  - [阅读原文](https://celeter.github.io/)
+  - [主页](https://celeter.github.io/)
 
