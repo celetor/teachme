@@ -140,7 +140,7 @@
          ```
          https://www.baidu.com,{
          	"charset": "gbk",
-         	"headers": "{\"User-Agent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36\"}",
+         	"headers": {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"},
          	"webView": true
          }
          ```
@@ -153,13 +153,12 @@
          	var headers = {"User-Agent": ua};
          	var option = {
          		"charset": "gbk",
-         		"headers": JSON.stringify(headers),
+         		"headers": headers,
          		"webView": true
          	};
          	"https://www.baidu.com," + JSON.stringify(option)
          </js>
          ```
-         ※其中，`ua`必须保证是`JavaScript`的`String`类型，`JSON.stringify()`才能将`header`转换为字符串。
 
          
 
@@ -172,7 +171,7 @@
          	"charset": "gbk",
          	"method": "POST",
          	"body": "bid=10086",
-         	"headers": "{\"User-Agent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36\"}",
+         	"headers": {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"},
          	"webView": true
          }
          ```
@@ -188,13 +187,13 @@
          		"charset": "gbk",
          		"method": "POST",
          		"body": String(body),
-         		"headers": JSON.stringify(headers),
+         		"headers": headers,
          		"webView": true
          	};
          	"https://www.baidu.com," + JSON.stringify(option)
          </js>
          ```
-         ※其中，`ua`和`body`必须保证是`JavaScript`的`String`类型，`JSON.stringify()`才能转换字符串成功。变量是计算得到的尽量都用`String()`强转一下类型。
+         ※其中，`body`必须保证是`JavaScript`的`String`类型，变量是计算得到的尽量都用`String()`强转一下类型。
 
          
 
