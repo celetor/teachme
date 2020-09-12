@@ -1,1 +1,1 @@
-## [https://gitee.com/alanskycn/teachme](https://gitee.com/alanskycn/teachme/)
+## [https://alanskycn.gitee.io/teachme](https://alanskycn.gitee.io/teachme/)
