@@ -235,6 +235,15 @@
     //当前页的URL
     baseUrl
     
+    //文件下载,content为十六进制字符串,url用于生成文件名，返回String文件路径
+    java.downloadFile(content: String, url: String)
+    
+    //文件解压,zipPath为压缩文件路径，返回String解压路径
+    java.unzipFile(zipPath: String)
+    
+    //文件夹内所有文件读取，返回内容String
+    java.getTxtInFolder(unzipPath: String)
+
     //输入urlStr获取网页内容，返回类型String?
     java.ajax(urlStr: String)
     
@@ -265,6 +274,10 @@
     
     //输入规则ruleStr获取节点列表，返回类型List<Any>
     java.getElements(ruleStr: String)
+    
+     /**************以下方法用于重定向拦截，返回返回Jsoup的Connection.Response*******/
+    java.get(urlStr: String, headers: Map<String, String>)
+    java.post(urlStr: String, body: String, headers: Map<String, String>)
     ```
 
 
