@@ -227,6 +227,34 @@
       留用了阅读2.0的规则，只能使用JSONPath，尽量避免使用
 
   + 自定义js方法
+    - 在js中调用java的常规方法：由于java这个关键字已经被使用，调用java开头的包名时需使用全局变量Packages
+       - 直接引入java类，如下所示，引入了两个java包，java包的作用域是在`with`的范围内，其内使用java相关语法，最后在作用域外被js调用了作用域内的函数
+        ```
+        var javaImport = new JavaImporter();
+        javaImport.importPackage(
+            Packages.java.lang,
+            Packages.java.security
+        );
+        with(javaImport){
+        function strToMd5By32(str) {
+          var reStr = null;
+          var md5 = MessageDigest.getInstance("MD5");
+          var bytes = md5.digest(String(str).getBytes());
+          var stringBuffer = new StringBuilder();
+          bytes.forEach(a=>{
+            var bt = a & 0xff;
+            if (bt < 16) {
+              stringBuffer.append("0");
+            }
+            stringBuffer.append(Integer.toHexString(bt));
+          });
+          reStr = stringBuffer.toString();
+          return reStr;
+        }
+        }
+        strToMd5By32('123')
+        ```
+       - 只想调用某个public函数：，例：`io.legado.app.utils.htmlFormat(str)`
 
     ```
     //当前页的responseBody
@@ -261,6 +289,19 @@
     //md5编码，返回类型String?
     java.md5Encode(str: String)
     java.md5Encode16(str: String)
+
+    //实现重定向拦截，返回Connection.Response
+    java.get(url: String, headers: Map<String, String>)
+    java.post(urlStr: String, body: String, headers: Map<String, String>)
+
+    //实现cookie读取，返回String
+    java.getCookie(tag: String, key: String?)
+
+    //html格式化，返回String
+    java.htmlFormat(str: String)
+
+    //实现字符串编码，返回String
+    java.encodeURI(str: String, enc: String)
     
     /**************以下部分方法由于JAVA不支持参数默认值，调用时不能省略***************/
     //设置需解析的内容content和baseUrl，返回类型AnalyzeRule
