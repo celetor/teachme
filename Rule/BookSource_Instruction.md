@@ -256,7 +256,7 @@
     ```
 
        - 只想调用某个public函数：，例：`io.legado.app.utils.htmlFormat(str)`、`org.jsoup.Jsoup.parse(str)`
-   - 下面是一些常用的函数/变量
+       - 下面是一些常用的函数/变量
     
     ```
     //当前页的responseBody
@@ -272,7 +272,7 @@
     java.unzipFile(zipPath: String)
     
     //文件夹内所有文件读取，返回内容String
-java.getTxtInFolder(unzipPath: String)
+    java.getTxtInFolder(unzipPath: String)
     
     //输入urlStr获取网页内容，返回类型String?
     java.ajax(urlStr: String)
@@ -290,17 +290,17 @@ java.getTxtInFolder(unzipPath: String)
         
     //md5编码，返回类型String?
     java.md5Encode(str: String)
-java.md5Encode16(str: String)
+    java.md5Encode16(str: String)
     
     //实现重定向拦截，返回Connection.Response
     java.get(url: String, headers: Map<String, String>)
-java.post(urlStr: String, body: String, headers: Map<String, String>)
+    java.post(urlStr: String, body: String, headers: Map<String, String>)
     
     //实现cookie读取，返回String
-java.getCookie(tag: String, key: String?)
+    java.getCookie(tag: String, key: String?)
     
     //html格式化，返回String
-java.htmlFormat(str: String)
+    java.htmlFormat(str: String)
     
     //实现字符串编码，返回String
     java.encodeURI(str: String, enc: String)
@@ -431,8 +431,7 @@ java.htmlFormat(str: String)
       		d:"200万字",
       		e:"第两千章 辰东肾虚",
       		f:"在破败中崛起，在寂灭中复苏。沧海成尘，雷电枯竭...",
-      		g:"https://bookcover.yuewen.com/qdbimg/349573/1004608738/300
-      ",
+      		g:"https://bookcover.yuewen.com/qdbimg/349573/1004608738/300",
       		h:"https://m.qidian.com/book/1004608738"
       	};
       })()
