@@ -1,5 +1,5 @@
 ## Legado书源规则说明
-更新时间：2020-09-29  更新url的headers规则
+更新时间：2020-11-05  更新url的headers规则
 ### 概况
 
   - 1、语法说明
@@ -230,33 +230,34 @@
     - 在js中调用java的常规方法：由于java这个关键字已经被使用，调用java开头的包名时需使用全局变量Packages
        - 直接引入java类，如下所示，引入了两个java包，java包的作用域是在`with`的范围内，其内使用java相关语法，最后在作用域外被js调用了作用域内的函数
     ```
-        var javaImport = new JavaImporter();
-        javaImport.importPackage(
-            Packages.java.lang,
-            Packages.java.security
-        );
-        with(javaImport){
-        function strToMd5By32(str) {
-          var reStr = null;
-          var md5 = MessageDigest.getInstance("MD5");
-          var bytes = md5.digest(String(str).getBytes());
-          var stringBuffer = new StringBuilder();
-          bytes.forEach(a=>{
-            var bt = a & 0xff;
-            if (bt < 16) {
-              stringBuffer.append("0");
-            }
-            stringBuffer.append(Integer.toHexString(bt));
-          });
-          reStr = stringBuffer.toString();
-          return reStr;
-        }
-        }
-        strToMd5By32('123')
+    var javaImport = new JavaImporter();
+    javaImport.importPackage(
+    	Packages.java.lang,
+    	Packages.java.security
+    );
+    with(javaImport){
+    	function strToMd5By32(str) {
+    		var reStr = null;
+    		var md5 = MessageDigest.getInstance("MD5");
+    		var bytes = md5.digest(String(str).getBytes());
+    		var stringBuffer = new StringBuilder();
+    		bytes.forEach(a=>{
+    			var bt = a & 0xff;
+    			if (bt < 16) {
+    				stringBuffer.append("0");
+    			}
+    			stringBuffer.append(Integer.toHexString(bt));
+    		});
+    		reStr = stringBuffer.toString();
+    		return reStr;
+    	}
+    }
+    strToMd5By32('123')
     ```
 
-       - 只想调用某个public函数：，例：`io.legado.app.utils.htmlFormat(str)`
-
+       - 只想调用某个public函数：，例：`io.legado.app.utils.htmlFormat(str)`、`org.jsoup.Jsoup.parse(str)`
+   - 下面是一些常用的函数/变量
+    
     ```
     //当前页的responseBody
     result
@@ -271,8 +272,8 @@
     java.unzipFile(zipPath: String)
     
     //文件夹内所有文件读取，返回内容String
-    java.getTxtInFolder(unzipPath: String)
-
+java.getTxtInFolder(unzipPath: String)
+    
     //输入urlStr获取网页内容，返回类型String?
     java.ajax(urlStr: String)
     
@@ -289,18 +290,18 @@
         
     //md5编码，返回类型String?
     java.md5Encode(str: String)
-    java.md5Encode16(str: String)
-
+java.md5Encode16(str: String)
+    
     //实现重定向拦截，返回Connection.Response
     java.get(url: String, headers: Map<String, String>)
-    java.post(urlStr: String, body: String, headers: Map<String, String>)
-
+java.post(urlStr: String, body: String, headers: Map<String, String>)
+    
     //实现cookie读取，返回String
-    java.getCookie(tag: String, key: String?)
-
+java.getCookie(tag: String, key: String?)
+    
     //html格式化，返回String
-    java.htmlFormat(str: String)
-
+java.htmlFormat(str: String)
+    
     //实现字符串编码，返回String
     java.encodeURI(str: String, enc: String)
     
@@ -523,7 +524,7 @@
         "searchUrl": "/search/,{\n  \"charset\": \"gbk\",\n  \"method\": \"POST\",\n  \"body\": \"page={{page}}&key={{key}}\"\n}",
         "weight": 0
       }
-      ```
+    ```
     
   + 资源正则(sourceRegex)
     
@@ -683,5 +684,4 @@
       "weight": 0
     }
     ```
-
 
