@@ -226,8 +226,11 @@
 
       留用了阅读2.0的规则，只能使用JSONPath，尽量避免使用
 
-  + 自定义js方法
-    - 在js中调用java的常规方法：由于java这个关键字已经被使用，调用java开头的包名时需使用全局变量Packages
+  + 自定义js
+    - 在js中调用java的常规方法：由于java这个关键字已经被使用，调用java开头的包名时需使用全局变量Packages  [参考脚本之家](https://www.jb51.net/article/92138.htm)
+       
+       - 只调用某个public函数：，例：`io.legado.app.utils.htmlFormat(str)`、`org.jsoup.Jsoup.parse(str)`
+       
        - 直接引入java类，如下所示，引入了两个java包，java包的作用域是在`with`的范围内，其内使用java相关语法，最后在作用域外被js调用了作用域内的函数
     ```
     var javaImport = new JavaImporter();
@@ -255,9 +258,8 @@
     strToMd5By32('123')
     ```
 
-       - 只想调用某个public函数：，例：`io.legado.app.utils.htmlFormat(str)`、`org.jsoup.Jsoup.parse(str)`
-       - 下面是一些常用的函数/变量
-    
+    - 下面是一些常用的函数/变量
+
     ```
     //当前页的responseBody
     result
