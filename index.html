@@ -7,7 +7,7 @@
     <title>阅读3.0(Legado)规则说明</title>
     <link rel="icon" href="https://gitee.com/alanskycn/yuedu/raw/master/JS/favicon.ico">
     <script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+    <!--<script src="https://cdn.bootcdn.net/ajax/libs/showdown/1.9.1/showdown.min.js"></script>-->
     <style>
         body {
             padding: 10px;
@@ -35,16 +35,22 @@
     </div>
     <script>
         function load_README() {
-            $.get("Rule/BookSource_Instruction.md", function (response, status, xhr) {
-                var converter = new showdown.Converter();
-                $("#content").html(converter.makeHtml(response));
+            // $.get("Rule/BookSource_Instruction.md", function (response, status, xhr) {
+            //     var converter = new showdown.Converter();
+            //     $("#content").html(converter.makeHtml(response));
+            // });
+            $.get("Rule/source.html", function (response, status, xhr) {
+                $("#content").html(response);
             });
         }
 
         function load_Subscribe() {
-            $.get("Rule/RssSource_Instruction.md", function (response, status, xhr) {
-                var converter = new showdown.Converter();
-                $("#content").html(converter.makeHtml(response));
+            // $.get("Rule/RssSource_Instruction.md", function (response, status, xhr) {
+            //     var converter = new showdown.Converter();
+            //     $("#content").html(converter.makeHtml(response));
+            // });
+            $.get("Rule/rss.html", function (response, status, xhr) {
+                $("#content").html(response);
             });
         }
     </script>
