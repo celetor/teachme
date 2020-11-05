@@ -11,10 +11,10 @@
 ------
 
 ### 1、语法说明
-  + 详见[书源规则](https://celeter.github.io/)
+  + 详见[书源规则](https://alanskycn.gitee.io/teachme/)
 
 ### 2、Legado的特殊规则
-  + 详见[书源规则](https://celeter.github.io/)
+  + 详见[书源规则](https://alanskycn.gitee.io/teachme/)
 
 ### 3、解析流程
 
@@ -113,5 +113,4 @@
       "sourceUrl": "https://gitee.com/alanskycn/yuedu/raw/master/JS/RSS/custom/customRss.json"
   }
   ```
-
 
