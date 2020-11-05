@@ -332,19 +332,14 @@
   + 书源名称(bookSourceName)
     - 必填
     - 名字可重复
-+ 书源分组(bookSourceGroup)
-  - 可不填
-  - 用于整理源
+  + 书源分组(bookSourceGroup)
+    - 可不填
+    - 用于整理源
   + 登录URL(loginUrl)
-    
     - 可不填
-    
     - 用于登录个人账户
-    
   + 书籍URL正则(bookUrlPattern)
-    
     - 可不填
-    
     - 添加网址时，用于识别书源
     
     - ```
@@ -373,15 +368,14 @@
     - 支持相对URL
 
   - 书籍列表规则(bookList)
-
   - 书名规则(name)
-  + 作者规则(author)
-  + 分类规则(kind)
-  + 字数规则(wordCount)
-  + 最新章节规则(lastChapter)
-  + 简介规则(intro)
-  + 封面规则(coverUrl)
-  + 详情页url规则(bookUrl)
+  - 作者规则(author)
+  - 分类规则(kind)
+  - 字数规则(wordCount)
+  - 最新章节规则(lastChapter)
+  - 简介规则(intro)
+  - 封面规则(coverUrl)
+  - 详情页url规则(bookUrl)
 
 ### 5、书源之「发现」
 
@@ -400,16 +394,14 @@
     - 支持相对URL
 
   - 书籍列表规则(bookList)
-
   - 书名规则(name)
-
-  + 作者规则(author)
-  + 分类规则(kind)
-  + 字数规则(wordCount)
-  + 最新章节规则(lastChapter)
-  + 简介规则(intro)
-  + 封面规则(coverUrl)
-  + 详情页url规则(bookUrl)
+  - 作者规则(author)
+  - 分类规则(kind)
+  - 字数规则(wordCount)
+  - 最新章节规则(lastChapter)
+  - 简介规则(intro)
+  - 封面规则(coverUrl)
+  - 详情页url规则(bookUrl)
 
 ### 6、书源之「详情」
 
@@ -441,15 +433,13 @@
       此时，书名规则填`a`，作者规则填`b`，分类规则填`c`，字数规则填`d`，最新章节规则填`e`，简介规则`f`，封面规则填`g`，目录URL规则填`h`
     
   - 书名规则(name)
-
-  + 作者规则(author)
-  + 分类规则(kind)
-  + 字数规则(wordCount)
-  + 最新章节规则(lastChapter)
-  + 简介规则(intro)
-  + 封面规则(coverUrl)
-
-  + 目录URL规则(tocUrl)
+  - 作者规则(author)
+  - 分类规则(kind)
+  - 字数规则(wordCount)
+  - 最新章节规则(lastChapter)
+  - 简介规则(intro)
+  - 封面规则(coverUrl)
+  - 目录URL规则(tocUrl)
 
 ### 7、书源之「目录」
   - 目录列表规则(chapterList)
