@@ -36,10 +36,10 @@
     - 标准规范与实现库 [Package org.jsoup.select, CSS-like element selector](https://jsoup.org/apidocs/org/jsoup/select/Selector.html)
    
   + JSOUP之CSS
-    - 语法见http://www.open-open.com/jsoup/selector-syntax.htm
+    - 语法见https://blog.csdn.net/hou_angela/article/details/80519718
     - 必须以 `@css:` 开头
-    - 标准规范与实现库 [Package org.jsoup.select, CSS-like element selector](https://jsoup.org/apidocs/org/jsoup/select/Selector.html)
-    - 在线测试 [Try jsoup online: Java HTML parser and CSS debugger](https://try.jsoup.org/)
+    - 标准规范与实现库 [Package org.jsoup.select](https://jsoup.org/apidocs/org/jsoup/select/Selector.html)
+    - 在线测试 [Try jsoup online](https://try.jsoup.org/)
    - 注意：获取内容可用text,textNodes,ownText,html,all,href,src等
    - 例子见最后的【书源一】的搜索页和正文页规则
 
@@ -52,7 +52,7 @@
    - 例子见最后的【书源三】的搜索页、目录页和正文页规则
 
   + XPath
-    - 语法见 [XPath教程](https://www.w3school.com.cn/xpath/index.asp)、[XPath库的说明](https://github.com/zhegexiaohuozi/JsoupXpath/blob/master/README.md)
+    - 语法见 [XPath教程-入门](https://www.w3school.com.cn/xpath/index.asp)、[XPath教程-基础](https://zhuanlan.zhihu.com/p/29436838)、[XPath教程-高级](https://zhuanlan.zhihu.com/p/32187820)、[XPath库的说明](https://github.com/zhegexiaohuozi/JsoupXpath/blob/master/README.md)
     - 必须以 `@XPath:` 或 `//` 开头
     - 标准规范 [W3C XPATH 1.0](https://www.w3.org/TR/1999/REC-xpath-19991116/) 
     - 实现库 [hegexiaohuozi/JsoupXpath](https://github.com/zhegexiaohuozi/JsoupXpath)
@@ -228,7 +228,7 @@
 
   + 自定义js
     - 在js中调用java的常规方法：由于java这个关键字已经被使用，调用java开头的包名时需使用全局变量Packages  [参考脚本之家](https://www.jb51.net/article/92138.htm)
-       
+      
        - 只调用某个public函数：，例：`io.legado.app.utils.htmlFormat(str)`、`org.jsoup.Jsoup.parse(str)`
        
        - 直接引入java类，如下所示，引入了两个java包，java包的作用域是在`with`的范围内，其内使用java相关语法，最后在作用域外被js调用了作用域内的函数
@@ -267,32 +267,23 @@
     //当前页的URL
     baseUrl
     
-    //文件下载,content为十六进制字符串,url用于生成文件名，返回String文件路径
-    java.downloadFile(content: String, url: String)
-    
-    //文件解压,zipPath为压缩文件路径，返回String解压路径
-    java.unzipFile(zipPath: String)
-    
-    //文件夹内所有文件读取，返回内容String
-    java.getTxtInFolder(unzipPath: String)
-    
-    //输入urlStr获取网页内容，返回类型String?
+    //访问网络，urlStr为url字符串，返回类型String?
     java.ajax(urlStr: String)
     
-    //格式化时间戳，返回类型String
-    java.timeFormat(timestamp: Long)
+    //访问网络，urlStr为url字符串，返回Response<String>，已废弃
+    java.connect(urlStr: String)
     
-    //base64解码，返回类型String
-    java.base64Decode(str: String)
-    //java.base64Decode(str: String, flags: Int)	//未启用
-        
-    //base64编码，返回类型String?
-    java.base64Encode(str: String)
-    java.base64Encode(str: String, flags: Int)
-        
-    //md5编码，返回类型String?
-    java.md5Encode(str: String)
-    java.md5Encode16(str: String)
+    //文件下载，content为十六进制字符串，url用于生成文件名，返回String文件路径
+    java.downloadFile(content: String, url: String)
+    
+    //文件解压，zipPath为压缩文件路径，返回String解压路径，会删除原文件只保留解压后的文件
+    java.unzipFile(zipPath: String)
+    
+    //文件夹内所有文件读取，返回内容String，会删除原文件
+    java.getTxtInFolder(unzipPath: String)
+    
+    //删除文件/文件夹路径，path为路径
+    java.deleteFolder(path: String)
     
     //实现重定向拦截，返回Connection.Response
     java.get(url: String, headers: Map<String, String>)
@@ -301,11 +292,50 @@
     //实现cookie读取，返回String
     java.getCookie(tag: String, key: String?)
     
+    //base64解码，返回类型String
+    java.base64Decode(str: String)
+    java.base64Decode(str: String, flags: Int)
+    
+    //base64解码，返回类型ByteArray?
+    java.base64DecodeToByteArray(str: String?)
+    java.base64DecodeToByteArray(str: String?, flags: Int)
+    
+    //base64编码，返回类型String?
+    java.base64Encode(str: String)
+    java.base64Encode(str: String, flags: Int)
+        
+    //md5编码，返回类型String?
+    java.md5Encode(str: String)
+    java.md5Encode16(str: String)
+    
+    //格式化时间戳，返回类型String
+    java.timeFormat(timestamp: Long)
+    java.timeFormat(time: String)
+    
+    //utf8编码转gbk编码，返回String
+    java.utf8ToGbk(str: String)
+    
+    //实现字符串的URI编码，enc为编码格式，返回String
+    java.encodeURI(str: String)	//默认enc="UTF-8"
+    java.encodeURI(str: String, enc: String)
+    
     //html格式化，返回String
     java.htmlFormat(str: String)
     
-    //实现字符串编码，返回String
-    java.encodeURI(str: String, enc: String)
+    //读取本地文件，返回ByteArray 
+    java.readFile(path: String)
+    
+    //读取本地文本文件，charsetName为编码格式
+    java.readTxtFile(path: String)	//默认charsetName="UTF-8"
+    java.readTxtFile(path: String, charsetName: String)
+    
+    //解析字体,返回字体解析类QueryTTF?
+    java.queryBase64TTF(base64: String?)
+    java.queryTTF(str: String?)
+    java.replaceFont(text: String,font1: QueryTTF?,font2: QueryTTF?)
+    
+    //输出调试日志
+    java.log(msg: String)
     
     /**************以下部分方法由于JAVA不支持参数默认值，调用时不能省略***************/
     //设置需解析的内容content和baseUrl，返回类型AnalyzeRule
@@ -320,9 +350,6 @@
     //输入规则ruleStr获取节点列表，返回类型List<Any>
     java.getElements(ruleStr: String)
     
-     /**************以下方法用于重定向拦截，返回返回Jsoup的Connection.Response*******/
-    java.get(urlStr: String, headers: Map<String, String>)
-    java.post(urlStr: String, body: String, headers: Map<String, String>)
     ```
 
 
@@ -468,23 +495,43 @@
 
       ```
       {
+        "bookSourceComment": "",
+        "bookSourceGroup": "  有声",
         "bookSourceName": "猫耳FM",
         "bookSourceType": 1,
         "bookSourceUrl": "https://www.missevan.com",
         "customOrder": 0,
         "enabled": false,
-        "enabledExplore": false,
+        "enabledExplore": true,
         "lastUpdateTime": 0,
-        "ruleBookInfo": "{}",
-        "ruleContent": "{\n  \"content\": \"https://static.missevan.com/{{//*[contains(@class,\\\"pld-sound-active\\\")]/@data-soundurl64}}\",\n  \"sourceRegex\": \"\",\n  \"webJs\": \"\"\n}",
-        "ruleExplore": "{}",
-        "ruleSearch": "{\n  \"author\": \"author\",\n  \"bookList\": \"$.info.Datas\",\n  \"bookUrl\": \"https://www.missevan.com/mdrama/drama/{{$.id}},{\\\"webView\\\":true}\",\n  \"coverUrl\": \"cover \",\n  \"intro\": \"abstract\",\n  \"kind\": \"{{$.type_name}},{{$.catalog_name}}\",\n  \"lastChapter\": \"newest \",\n  \"name\": \"name\",\n  \"wordCount\": \"catalog_name \"\n}",
-        "ruleToc": "{\n  \"chapterList\": \"@css:.scroll-list.btn-groups>a\",\n  \"chapterName\": \"text\",\n  \"chapterUrl\": \"href##$##,{\\\"webView\\\":true}\"\n}",
+        "ruleBookInfo": {},
+        "ruleContent": {
+          "content": "https://static.missevan.com/{{//*[contains(@class,\"pld-sound-active\")]/@data-soundurl64}}",
+          "sourceRegex": "",
+          "webJs": ""
+        },
+        "ruleExplore": {},
+      "ruleSearch": {
+          "author": "author",
+          "bookList": "$.info.Datas",
+          "bookUrl": "https://www.missevan.com/mdrama/drama/{{$.id}},{\"webView\":true}",
+          "coverUrl": "cover ",
+          "intro": "abstract",
+          "kind": "{{$.type_name}},{{$.catalog_name}}",
+          "lastChapter": "newest ",
+          "name": "name",
+          "wordCount": "catalog_name "
+        },
+        "ruleToc": {
+          "chapterList": "@css:.scroll-list.btn-groups>a",
+          "chapterName": "text",
+          "chapterUrl": "href##$##,{\"webView\":true}"
+        },
         "searchUrl": "https://www.missevan.com/dramaapi/search?s={{key}}&page=1",
         "weight": 0
       }
       ```
-
+      
       
 
   + 正文下一页URL规则(nextContentUrl)
@@ -507,11 +554,50 @@
         "exploreUrl": "男生书库::/shuku/0_1_0_0_0_{{page}}_0_0\n男频连载::/shuku/0_2_0_0_0_{{page}}_0_0\n男频完结::/shuku/0_3_0_0_0_{{page}}_0_0\n添加时间::/shuku/0_1_0_0_8_{{page}}_0_0\n总点击榜::/shuku/0_1_0_0_2_{{page}}_0_0\n月点击榜::/shuku/0_1_0_0_5_{{page}}_0_0\n周点击榜::/shuku/0_1_0_0_4_{{page}}_0_0\n总推荐榜::/shuku/0_1_0_0_1_{{page}}_0_0\n月推荐榜::/shuku/0_1_0_0_7_{{page}}_0_0\n周推荐榜::/shuku/0_1_0_0_6_{{page}}_0_0\n总收藏榜::/shuku/0_1_0_0_3_{{page}}_0_0\n总字数榜::/shuku/0_1_0_0_9_{{page}}_0_0\n玄幻奇幻::/shuku/1_1_0_0_0_{{page}}_0_0\n东方玄幻::/shuku/1_1_0_11_0_{{page}}_0_0\n异世大陆::/shuku/1_1_0_12_0_{{page}}_0_0\n史诗奇幻::/shuku/1_1_0_13_0_{{page}}_0_0\n异类兽族::/shuku/1_1_0_14_0_{{page}}_0_0\n历史神话::/shuku/1_1_0_15_0_{{page}}_0_0\n王朝争霸::/shuku/1_1_0_16_0_{{page}}_0_0\n高武世界::/shuku/1_1_0_17_0_{{page}}_0_0\n剑与魔法::/shuku/1_1_0_18_0_{{page}}_0_0\n二次元　::/shuku/1_1_0_19_0_{{page}}_0_0\n武侠仙侠::/shuku/2_1_0_0_0_{{page}}_0_0\n古典仙侠::/shuku/2_1_0_21_0_{{page}}_0_0\n修真文明::/shuku/2_1_0_22_0_{{page}}_0_0\n现代修真::/shuku/2_1_0_23_0_{{page}}_0_0\n神话修真::/shuku/2_1_0_24_0_{{page}}_0_0\n传统武侠::/shuku/2_1_0_25_0_{{page}}_0_0\n浪子异侠::/shuku/2_1_0_26_0_{{page}}_0_0\n国术武技::/shuku/2_1_0_27_0_{{page}}_0_0\n武侠幻想::/shuku/2_1_0_28_0_{{page}}_0_0\n幻想修仙::/shuku/2_1_0_29_0_{{page}}_0_0\n都市青春::/shuku/3_1_0_0_0_{{page}}_0_0\n都市生活::/shuku/3_1_0_31_0_{{page}}_0_0\n官场沉浮::/shuku/3_1_0_32_0_{{page}}_0_0\n娱乐明星::/shuku/3_1_0_33_0_{{page}}_0_0\n乡土小说::/shuku/3_1_0_34_0_{{page}}_0_0\n异术超能::/shuku/3_1_0_35_0_{{page}}_0_0\n现实百态::/shuku/3_1_0_36_0_{{page}}_0_0\n校园青春::/shuku/3_1_0_37_0_{{page}}_0_0\n历史军事::/shuku/4_1_0_0_0_{{page}}_0_0\n架空历史::/shuku/4_1_0_41_0_{{page}}_0_0\n上古先秦::/shuku/4_1_0_42_0_{{page}}_0_0\n秦汉三国::/shuku/4_1_0_43_0_{{page}}_0_0\n两晋隋唐::/shuku/4_1_0_44_0_{{page}}_0_0\n五代十国::/shuku/4_1_0_45_0_{{page}}_0_0\n两宋元明::/shuku/4_1_0_46_0_{{page}}_0_0\n清史民国::/shuku/4_1_0_47_0_{{page}}_0_0\n外国历史::/shuku/4_1_0_48_0_{{page}}_0_0\n历史传记::/shuku/4_1_0_49_0_{{page}}_0_0\n军事战争::/shuku/4_1_0_410_0_{{page}}_0_0\n抗战烽火::/shuku/4_1_0_411_0_{{page}}_0_0\n战争幻想::/shuku/4_1_0_412_0_{{page}}_0_0\n科幻灵异::/shuku/5_1_0_0_0_{{page}}_0_0\n未来世界::/shuku/5_1_0_51_0_{{page}}_0_0\n星际文明::/shuku/5_1_0_52_0_{{page}}_0_0\n宇宙练功::/shuku/5_1_0_53_0_{{page}}_0_0\n超级科技::/shuku/5_1_0_54_0_{{page}}_0_0\n时空穿梭::/shuku/5_1_0_55_0_{{page}}_0_0\n进化变异::/shuku/5_1_0_56_0_{{page}}_0_0\n末世危机::/shuku/5_1_0_57_0_{{page}}_0_0\n灵异鬼怪::/shuku/5_1_0_58_0_{{page}}_0_0\n恐怖惊悚::/shuku/5_1_0_59_0_{{page}}_0_0\n悬疑侦探::/shuku/5_1_0_510_0_{{page}}_0_0\n寻墓探险::/shuku/5_1_0_511_0_{{page}}_0_0\n风水秘术::/shuku/5_1_0_512_0_{{page}}_0_0\n游戏竞技::/shuku/6_1_0_0_0_{{page}}_0_0\n虚拟网游::/shuku/6_1_0_61_0_{{page}}_0_0\n游戏异界::/shuku/6_1_0_61_0_{{page}}_0_0\n体育竞技::/shuku/6_1_0_61_0_{{page}}_0_0\n游戏生涯::/shuku/6_1_0_61_0_{{page}}_0_0\n电子竞技::/shuku/6_1_0_61_0_{{page}}_0_0\n弈林春秋::/shuku/6_1_0_61_0_{{page}}_0_0\n女生书库::/shuku/9_1_0_0_0_{{page}}_0_0\n女频连载::/shuku/9_2_0_0_0_{{page}}_0_0\n女频完结::/shuku/9_3_0_0_0_{{page}}_0_0\n添加时间::/shuku/9_1_0_0_8_{{page}}_0_0\n总点击榜::/shuku/9_1_0_0_2_{{page}}_0_0\n月点击榜::/shuku/9_1_0_0_5_{{page}}_0_0\n周点击榜::/shuku/9_1_0_0_4_{{page}}_0_0\n总推荐榜::/shuku/9_1_0_0_1_{{page}}_0_0\n月推荐榜::/shuku/9_1_0_0_7_{{page}}_0_0\n周推荐榜::/shuku/9_1_0_0_6_{{page}}_0_0\n总收藏榜::/shuku/9_1_0_0_3_{{page}}_0_0\n总字数榜::/shuku/9_1_0_0_9_{{page}}_0_0\n豪门总裁::/shuku/9_1_0_91_0_{{page}}_0_0\n都市生活::/shuku/9_1_0_92_0_{{page}}_0_0\n青春校园::/shuku/9_1_0_93_0_{{page}}_0_0\n都市异能::/shuku/9_1_0_94_0_{{page}}_0_0\n星际科幻::/shuku/9_1_0_95_0_{{page}}_0_0\n游戏竞技::/shuku/9_1_0_96_0_{{page}}_0_0\n灵异推理::/shuku/9_1_0_97_0_{{page}}_0_0\n婚恋情缘::/shuku/9_1_0_98_0_{{page}}_0_0\n官场沉浮::/shuku/9_1_0_99_0_{{page}}_0_0\n娱乐明星::/shuku/9_1_0_910_0_{{page}}_0_0\n穿越架空::/shuku/9_1_0_911_0_{{page}}_0_0\n经商种田::/shuku/9_1_0_912_0_{{page}}_0_0\n玄幻仙侠::/shuku/9_1_0_913_0_{{page}}_0_0\n历史军事::/shuku/9_1_0_914_0_{{page}}_0_0\n宫闱宅斗::/shuku/9_1_0_915_0_{{page}}_0_0\n重生复仇::/shuku/9_1_0_916_0_{{page}}_0_0\n豪门恩怨::/shuku/9_1_0_917_0_{{page}}_0_0",
         "lastUpdateTime": 0,
         "loginUrl": "",
-        "ruleBookInfo": "{\n  \"author\": \"@css:[property=og:novel:author]@content\",\n  \"coverUrl\": \"@css:[property=og:image]@content\",\n  \"intro\": \"@css:#bookintro@html\",\n  \"kind\": \"@css:[property=og:novel:category]@content\",\n  \"lastChapter\": \"@css:[property=og:novel:latest_chapter_name]@content\",\n  \"name\": \"@css:[property=og:novel:book_name]@content\",\n  \"tocUrl\": \"@css:[property=og:novel:read_url]@content\",\n  \"wordCount\": \"@css:.count li:eq(3)>span@text\"\n}",
-        "ruleContent": "{\n  \"content\": \"all\",\n  \"nextContentUrl\": \"\",\n  \"webJs\": \"getDecode();$('#content').html();\"\n}",
-        "ruleExplore": "{\n  \"author\": \"//li[4]/a/text()\",\n  \"bookList\": \"//ul[count(../ul)>10]\",\n  \"bookUrl\": \"//li[3]/a/@href\",\n  \"coverUrl\": \"##/book/(\\\\d+)##https://img.zhaishuyuan.com/bookpic/s$1.jpg###\",\n  \"intro\": \"//li[6]/text()\",\n  \"kind\": \"//li[2]/text()##\\\\[|\\\\]\",\n  \"lastChapter\": \"//span/a/text()\",\n  \"name\": \"//li[3]/a/text()\",\n  \"wordCount\": \"//li[5]/text()\"\n}",
-        "ruleSearch": "{\n  \"author\": \"//dd[2]/span[1]/text()\",\n  \"bookList\": \"//*[@id=\\\"sitembox\\\"]/dl\",\n  \"bookUrl\": \"//dt/a/@href\",\n  \"coverUrl\": \"//img/@_src\",\n  \"intro\": \"//dd[3]/html()\",\n  \"kind\": \"//dd[2]/span[3]/text()\",\n  \"lastChapter\": \"//dd[4]/a/text()\",\n  \"name\": \"//h3/a//text()\",\n  \"wordCount\": \"//dd[2]/span[4]/text()\"\n}",
-        "ruleToc": "{\n  \"chapterList\": \":href=\\\"(/chapter/[^\\\"]*)\\\"[^>]*>([^<]*)</a>([^<]*)\",\n  \"chapterName\": \"$2\",\n  \"chapterUrl\": \"$1,{\\\"webView\\\":true}\",\n  \"nextTocUrl\": \"//strong/following-sibling::a/@href\",\n  \"updateTime\": \"$3\"\n}",
+        "ruleBookInfo": {
+          "author": "@css:[property=og:novel:author]@content",
+          "coverUrl": "@css:[property=og:image]@content",
+          "intro": "@css:#bookintro@html",
+          "kind": "@css:[property=og:novel:category]@content",
+          "lastChapter": "@css:[property=og:novel:latest_chapter_name]@content",
+          "name": "@css:[property=og:novel:book_name]@content",
+          "tocUrl": "@css:[property=og:novel:read_url]@content",
+          "wordCount": "@css:.count li:eq(3)>span@text"
+        },
+        "ruleContent": {
+          "content": "all",
+          "nextContentUrl": "",
+          "webJs": "getDecode();$('#content').html();"
+        },
+        "ruleExplore": {
+          "author": "//li[4]/a/text()",
+          "bookList": "//ul[count(../ul)>10]",
+          "bookUrl": "//li[3]/a/@href",
+          "coverUrl": "##/book/(\\d+)##https://img.zhaishuyuan.com/bookpic/s$1.jpg###",
+          "intro": "//li[6]/text()",
+          "kind": "//li[2]/text()##\\[|\\]",
+          "lastChapter": "//span/a/text()",
+          "name": "//li[3]/a/text()",
+          "wordCount": "//li[5]/text()"
+        },
+        "ruleSearch": {
+          "author": "//dd[2]/span[1]/text()",
+          "bookList": "//*[@id=\"sitembox\"]/dl",
+          "bookUrl": "//dt/a/@href",
+          "coverUrl": "//img/@_src",
+          "intro": "//dd[3]/html()",
+          "kind": "//dd[2]/span[3]/text()",
+          "lastChapter": "//dd[4]/a/text()",
+          "name": "//h3/a//text()",
+          "wordCount": "//dd[2]/span[4]/text()"
+        },
+        "ruleToc": {
+          "chapterList": ":href=\"(/chapter/[^\"]*)\"[^>]*>([^<]*)</a>([^<]*)",
+          "chapterName": "$2",
+          "chapterUrl": "$1,{\"webView\":true}",
+          "nextTocUrl": "//strong/following-sibling::a/@href",
+          "updateTime": "$3"
+        },
         "searchUrl": "/search/,{\n  \"charset\": \"gbk\",\n  \"method\": \"POST\",\n  \"body\": \"page={{page}}&key={{key}}\"\n}",
         "weight": 0
       }
@@ -533,23 +619,43 @@
     
       ```
       {
+        "bookSourceComment": "",
+        "bookSourceGroup": "  有声",
         "bookSourceName": "猫耳FM",
         "bookSourceType": 1,
         "bookSourceUrl": "https://www.missevan.com",
         "customOrder": 0,
         "enabled": false,
-        "enabledExplore": false,
+        "enabledExplore": true,
         "lastUpdateTime": 0,
-        "ruleBookInfo": "{}",
-        "ruleContent": "{\n  \"content\": \"<js>result</js>\",\n  \"sourceRegex\": \".*\\\\.(mp3|mp4)\",\n  \"webJs\": \"\"\n}",
-        "ruleExplore": "{}",
-        "ruleSearch": "{\n  \"author\": \"author\",\n  \"bookList\": \"$.info.Datas\",\n  \"bookUrl\": \"https://www.missevan.com/mdrama/drama/{{$.id}},{\\\"webView\\\":true}\",\n  \"coverUrl\": \"cover \",\n  \"intro\": \"abstract\",\n  \"kind\": \"{{$.type_name}},{{$.catalog_name}}\",\n  \"lastChapter\": \"newest \",\n  \"name\": \"name\",\n  \"wordCount\": \"catalog_name \"\n}",
-        "ruleToc": "{\n  \"chapterList\": \"@css:.scroll-list.btn-groups>a\",\n  \"chapterName\": \"text\",\n  \"chapterUrl\": \"href##$##,{\\\"webView\\\":true}\"\n}",
+        "ruleBookInfo": {},
+        "ruleContent": {
+          "content": "https://static.missevan.com/{{//*[contains(@class,\"pld-sound-active\")]/@data-soundurl64}}",
+          "sourceRegex": "",
+          "webJs": ""
+        },
+        "ruleExplore": {},
+      "ruleSearch": {
+          "author": "author",
+          "bookList": "$.info.Datas",
+          "bookUrl": "https://www.missevan.com/mdrama/drama/{{$.id}},{\"webView\":true}",
+          "coverUrl": "cover ",
+          "intro": "abstract",
+          "kind": "{{$.type_name}},{{$.catalog_name}}",
+          "lastChapter": "newest ",
+          "name": "name",
+          "wordCount": "catalog_name "
+        },
+        "ruleToc": {
+          "chapterList": "@css:.scroll-list.btn-groups>a",
+          "chapterName": "text",
+          "chapterUrl": "href##$##,{\"webView\":true}"
+        },
         "searchUrl": "https://www.missevan.com/dramaapi/search?s={{key}}&page=1",
         "weight": 0
       }
       ```
-    
+      
       
     
 ### 9、补充说明
@@ -607,8 +713,9 @@
 
     ```
     {
+      "bookSourceComment": "",
       "bookSourceGroup": "CSS; 正则",
-      "bookSourceName": "🔥小说2016",
+      "bookSourceName": "小说2016",
       "bookSourceType": 0,
       "bookSourceUrl": "https://www.xiaoshuo2016.com",
       "bookUrlPattern": "",
@@ -618,22 +725,48 @@
       "exploreUrl": "",
       "lastUpdateTime": 0,
       "loginUrl": "",
-      "ruleBookInfo": "{\n  \"author\": \"##:author\\\"[^\\\"]+\\\"([^\\\"]*)##$1###\",\n  \"coverUrl\": \"##og:image\\\"[^\\\"]+\\\"([^\\\"]*)##$1###\",\n  \"intro\": \"##:description\\\"[^\\\"]+\\\"([\\\\w\\\\W]*?)\\\"/##$1###\",\n  \"kind\": \"##:category\\\"[^\\\"]+\\\"([^\\\"]*)##$1###\",\n  \"lastChapter\": \"##_chapter_name\\\"[^\\\"]+\\\"([^\\\"]*)##$1###\",\n  \"name\": \"##:book_name\\\"[^\\\"]+\\\"([^\\\"]*)##$1###\",\n  \"tocUrl\": \"\"\n}",
-      "ruleContent": "{\n  \"content\": \"@css:.articleDiv p@textNodes##搜索.*手机访问|一秒记住.*|.*阅读下载|<!\\\\[CDATA\\\\[|\\\\]\\\\]>\",\n  \"nextContentUrl\": \"\"\n}",
-      "ruleExplore": "{}",
-      "ruleSearch": "{\n  \"author\": \"@css:p:eq(2)>a@text\",\n  \"bookList\": \"@css:li.clearfix\",\n  \"bookUrl\": \"@css:.name>a@href\",\n  \"coverUrl\": \"@css:img@src\",\n  \"intro\": \"@css:.note.clearfix p@text\",\n  \"kind\": \"@css:.note_text,p:eq(4)@text\",\n  \"lastChapter\": \"@css:p:eq(3)@text\",\n  \"name\": \"@css:.name@text\"\n}",
-      "ruleToc": "{\n  \"chapterList\": \"-:<li><a[^\\\"]+\\\"([^\\\"]*)\\\">([^<]*)\",\n  \"chapterName\": \"$2\",\n  \"chapterUrl\": \"$1\",\n  \"nextTocUrl\": \"\"\n}",
+      "ruleBookInfo": {
+        "author": "##:author\"[^\"]+\"([^\"]*)##$1###",
+        "coverUrl": "##og:image\"[^\"]+\"([^\"]*)##$1###",
+        "intro": "##:description\"[^\"]+\"([\\w\\W]*?)\"/##$1###",
+        "kind": "##:category\"[^\"]+\"([^\"]*)##$1###",
+        "lastChapter": "##_chapter_name\"[^\"]+\"([^\"]*)##$1###",
+        "name": "##:book_name\"[^\"]+\"([^\"]*)##$1###",
+        "tocUrl": ""
+    },
+      "ruleContent": {
+      "content": "@css:.articleDiv p@textNodes##搜索.*手机访问|一秒记住.*|.*阅读下载|<!\\[CDATA\\[|\\]\\]>",
+        "nextContentUrl": ""
+      },
+      "ruleExplore": {},
+      "ruleSearch": {
+        "author": "@css:p:eq(2)>a@text",
+        "bookList": "@css:li.clearfix",
+        "bookUrl": "@css:.name>a@href",
+        "coverUrl": "@css:img@src",
+        "intro": "@css:.note.clearfix p@text",
+        "kind": "@css:.note_text,p:eq(4)@text",
+        "lastChapter": "@css:p:eq(3)@text",
+        "name": "@css:.name@text"
+      },
+      "ruleToc": {
+        "chapterList": "-:<li><a[^\"]+\"([^\"]*)\">([^<]*)",
+        "chapterName": "$2",
+        "chapterUrl": "$1",
+        "nextTocUrl": ""
+      },
       "searchUrl": "/modules/article/search.php?searchkey={{key}}&submit=&page={{page}},{\n  \"charset\": \"gbk\"\n}",
       "weight": 0
     }
-    ```
-
-  - 书源二
-
+  ```
+  
+- 书源二
+  
     ```
     {
+      "bookSourceComment": "",
       "bookSourceGroup": "XPath; 正则",
-      "bookSourceName": "🔥采墨阁手机版",
+      "bookSourceName": "采墨阁手机版",
       "bookSourceType": 0,
       "bookSourceUrl": "https://m.caimoge.com",
       "bookUrlPattern": "",
@@ -643,20 +776,45 @@
       "exploreUrl": "",
       "lastUpdateTime": 0,
       "loginUrl": "",
-      "ruleBookInfo": "{\n  \"author\": \"//*[@property=\\\"og:novel:author\\\"]/@content\",\n  \"coverUrl\": \"//*[@property=\\\"og:image\\\"]/@content\",\n  \"intro\": \"//*[@property=\\\"og:description\\\"]/@content\",\n  \"kind\": \"//*[@property=\\\"og:novel:category\\\"]/@content\",\n  \"lastChapter\": \"//*[@id=\\\"newlist\\\"]//li[1]/a/text()\",\n  \"name\": \"//*[@property=\\\"og:novel:book_name\\\"]/@content\",\n  \"tocUrl\": \"//a[text()=\\\"阅读\\\"]/@href\"\n}",
-      "ruleContent": "{\n  \"content\": \"//*[@id=\\\"content\\\"]\",\n  \"nextContentUrl\": \"\"\n}",
-      "ruleExplore": "{}",
-      "ruleSearch": "{\n  \"author\": \"//dd[2]/text()\",\n  \"bookList\": \"//*[@id=\\\"sitebox\\\"]/dl\",\n  \"bookUrl\": \"//dt/a/@href\",\n  \"coverUrl\": \"//img/@src\",\n  \"kind\": \"//dd[2]/span/text()\",\n  \"lastChapter\": \"\",\n  \"name\": \"//h3/a/text()\"\n}",
-      "ruleToc": "{\n  \"chapterList\": \":href=\\\"(/read[^\\\"]*html)\\\">([^<]*)\",\n  \"chapterName\": \"$2\",\n  \"chapterUrl\": \"$1\",\n  \"nextTocUrl\": \"//*[@id=\\\"pagelist\\\"]/*[position()>1]/@value\"\n}",
+      "ruleBookInfo": {
+        "author": "//*[@property=\"og:novel:author\"]/@content",
+        "coverUrl": "//*[@property=\"og:image\"]/@content",
+        "intro": "//*[@property=\"og:description\"]/@content",
+        "kind": "//*[@property=\"og:novel:category\"]/@content",
+        "lastChapter": "//*[@id=\"newlist\"]//li[1]/a/text()",
+        "name": "//*[@property=\"og:novel:book_name\"]/@content",
+        "tocUrl": "//a[text()=\"阅读\"]/@href"
+      },
+      "ruleContent": {
+        "content": "//*[@id=\"content\"]",
+        "nextContentUrl": ""
+      },
+      "ruleExplore": {},
+      "ruleSearch": {
+        "author": "//dd[2]/text()",
+        "bookList": "//*[@id=\"sitebox\"]/dl",
+        "bookUrl": "//dt/a/@href",
+        "coverUrl": "//img/@src",
+        "kind": "//dd[2]/span/text()",
+        "lastChapter": "",
+        "name": "//h3/a/text()"
+      },
+      "ruleToc": {
+        "chapterList": ":href=\"(/read[^\"]*html)\">([^<]*)",
+        "chapterName": "$2",
+        "chapterUrl": "$1",
+        "nextTocUrl": "//*[@id=\"pagelist\"]/*[position()>1]/@value"
+      },
       "searchUrl": "/search.html,{\n  \"method\": \"POST\",\n  \"body\": \"searchkey={{key}}\"\n}",
       "weight": 0
     }
     ```
-
+  
   - 书源三
-
+  
     ```
     {
+      "bookSourceComment": "",
       "bookSourceGroup": "JSon",
       "bookSourceName": "猎鹰小说网",
       "bookSourceType": 0,
@@ -666,11 +824,26 @@
       "enabledExplore": false,
       "header": "{\n  \"User-Agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36\"\n}",
       "lastUpdateTime": 0,
-      "ruleBookInfo": "{}",
-      "ruleContent": "{\n  \"content\": \"$.chapter.body\"\n}",
-      "ruleExplore": "{}",
-      "ruleSearch": "{\n  \"author\": \"$.author\",\n  \"bookList\": \"$..books[*]\",\n  \"bookUrl\": \"/Book/getChapterListByBookId?bookId={$._id}\",\n  \"coverUrl\": \"$.cover\",\n  \"intro\": \"$.shortIntro\",\n  \"kind\": \"$.minorCate\",\n  \"lastChapter\": \"$.lastChapter\",\n  \"name\": \"$.title\"\n}",
-      "ruleToc": "{\n  \"chapterList\": \"$.chapterInfo.chapters.[*]\",\n  \"chapterName\": \"$.title\",\n  \"chapterUrl\": \"$.link\"\n}",
+      "ruleBookInfo": {},
+      "ruleContent": {
+        "content": "$.chapter.body"
+      },
+      "ruleExplore": {},
+      "ruleSearch": {
+        "author": "$.author",
+        "bookList": "$..books[*]",
+        "bookUrl": "/Book/getChapterListByBookId?bookId={$._id}",
+        "coverUrl": "$.cover",
+        "intro": "$.shortIntro",
+        "kind": "$.minorCate",
+        "lastChapter": "$.lastChapter",
+        "name": "$.title"
+      },
+      "ruleToc": {
+        "chapterList": "$.chapterInfo.chapters.[*]",
+        "chapterName": "$.title",
+        "chapterUrl": "$.link"
+      },
       "searchUrl": "/Book/search?query={{key}}&start={{(page-1)*20}}&limit=40&device_type=android&app_version=165",
       "weight": 0
     }
