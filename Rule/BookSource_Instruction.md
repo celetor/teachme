@@ -285,7 +285,7 @@
     //删除文件/文件夹路径，path为路径
     java.deleteFolder(path: String)
     
-    //实现重定向拦截，返回Connection.Response
+    //实现重定向拦截，返回[Connection.Response](https://jsoup.org/apidocs/org/jsoup/Connection.Response.html)
     java.get(url: String, headers: Map<String, String>)
     java.post(urlStr: String, body: String, headers: Map<String, String>)
     
