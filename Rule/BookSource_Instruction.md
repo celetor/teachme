@@ -32,6 +32,19 @@
      例:class.odd.0@tag.a.0@text||tag.dd.0@tag.h1@text##全文阅读
      例:class.odd.0@tag.a.0@text&&tag.dd.0@tag.h1@text##全文阅读
     ```
+    **2021/07/07**
+      1. 默认规则新增类似`jsonPath`的索引写法 by bushixuanqi
+      * 格式形如 `[index,index, ...]` 或 `[!index,index, ...]` 其中`[!`开头表示筛选方式为排除，`index`可以是单个索引，也可以是区间。
+      * 区间格式为 `start:end` 或 `start:end:step`，其中`start`为`0`可省略，`end`为`-1`可省略。
+      * 索引、区间两端、区间间隔都支持负数
+      * 例如 `tag.div[-1, 3:-2:-10, 2]`
+      * 特殊用法 `tag.div[-1:0]` 可在任意地方让列表反向
+      2. 允许索引作为@分段后每个部分的首规则，此时相当于前面是`children`
+      * `head@.1@text` 与 `head@[1]@text` 与 `head@children[1]@text` 等价
+      3. 添加Umd格式支持 by ag2s20150909
+      4. 修复web页面按键重复监听的bug
+      5. 亮度条往中间移了一点,防止误触
+      6. 添加内置字典
   
     - 标准规范与实现库 [Package org.jsoup.select, CSS-like element selector](https://jsoup.org/apidocs/org/jsoup/select/Selector.html)
    
@@ -417,10 +430,59 @@
       ① `{{page - 1 == 0 ? "": page}}`  
 
       ② `<,{{page}}>`
-
+    - 格式 架空历史::http://xxxxx
     - 发现URL可使用`&&`或换行符隔开
 
     - 支持相对URL
+    - json格式
+```json
+ [
+    {
+        "title": "今日限免",
+        "url": "https://app-cdn.jjwxc.net/bookstore/getFullPage?channel=novelfree",
+        "style": {
+            "layout_flexGrow": 1
+        }
+    },
+    {
+        "title": "我的收藏",
+        "url": "http://app.jjwxc.org:80/androidapi/incrementFavorite?versionCode=185&token={{java.getCookie(\"http://m.jjwxc.net\",\"sid\")}}&backupTime=&order=1",
+        "style": {
+            "layout_flexGrow": 1
+        }
+    },
+    {
+        "title": "🌸 百合全部 🌸",
+        "url": "https://app-cdn.jjwxc.net/bookstore/getFullPage?channel=bhxs&version=3",
+        "style": {
+            "layout_flexGrow": 1,
+            "layout_flexShrink": 1,
+            "layout_alignSelf": "auto",
+            "layout_flexBasisPercent": -1,
+            "layout_wrapBefore": true
+        }
+    },
+    {
+        "title": "频道金榜",
+        "url": "http://app-cdn.jjwxc.net/bookstore/getFullPage?channelBody=%7B%229%22%3A%7B%22offset%22%3A%22<,{{(page-1)*25}}>%22%2C%22limit%22%3A%2225%22%7D%7D&versionCode=148",
+        "style": {
+            "layout_flexGrow": 0,
+            "layout_flexShrink": 1,
+            "layout_alignSelf": "auto",
+            "layout_flexBasisPercent": -1,
+            "layout_wrapBefore": true
+        }
+    },
+    {
+        "title": "重来一世",
+        "url": "http://app-cdn.jjwxc.net/bookstore/getFullPage?channelBody=%7B%2222000013%22%3A%7B%22offset%22%3A%22<,{{(page-1)*25}}>%22%2C%22limit%22%3A%2225%22%7D%7D&versionCode=148"
+    },
+    {
+        "title": "幻想未来",
+        "url": "http://app-cdn.jjwxc.net/bookstore/getFullPage?channelBody=%7B%2222000023%22%3A%7B%22offset%22%3A%22<,{{(page-1)*25}}>%22%2C%22limit%22%3A%2225%22%7D%7D&versionCode=148"
+    }
+]
+```
 
   - 书籍列表规则(bookList)
   - 书名规则(name)
