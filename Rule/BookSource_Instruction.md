@@ -17,37 +17,32 @@
 ### 1、语法说明
   + JSOUP之Default
     - 语法如下：
+    ```Chinese
+     ▲ @为分隔符,用来分隔获取规则
+      ·每段规则可分为3段
+      ·第一段是类型,如class,id,tag,text,children等, children获取所有子标签,不需要第二段和第三段,text可以根据文本内容获取
+      ·第二段是名称,text. 第二段为文本内容的一部分
+      ·第三段是位置,class,tag,id等会获取到多个,所以要加位置
+      ·如不加位置会获取所有
+      ·位置正着数从0开始,0是第一个,如为负数则是取倒着数的值,-1为倒数第一个,-2为倒数第二个
+      ·!是排除,有些位置不符合需要排除用!,后面的序号用:隔开0是第1个,负数为倒数序号,-1最后一个,-2倒数第2个,依次
+      ·获取列表的最前面加上负号- 可以使列表倒置,有些网站目录列表是倒的,前面加个负号可变为正的
+      ·@的最后一段为获取内容,如text,textNodes,ownText,href,src,html,all等
+      ·如需要正则替换在最后加上 ##正则表达式##替换内容，替换内容为空时，第二个##可以省略
+      ·例:class.odd.0@tag.a.0@text||tag.dd.0@tag.h1@text##全文阅读
+      ·例:class.odd.0@tag.a.0@text&&tag.dd.0@tag.h1@text##全文阅读
+     
+     ▲ 增加支持类似数组的写法
+      ·格式如:[index,index, ...]或[!index,index, ...],其中[!`开头表示筛选方式为排除,index可以是单个索引,也可以是区间
+      ·区间格式为[start:end]或[start:end:step]，其中start为0时可省略，end为-1时可省略
+      ·索引(index)、区间两端(start和end)、区间间隔(step)都支持负数
+      ·特殊用法tag.div[-1:0],可在任意地方让列表反向
+     ▲ 允许索引作为@分段后每个部分的首规则，此时相当于前面是children
+      ·head@.1@text与head@[1]@text与head@children[1]@text等价
+     
     ```
-     @为分隔符,用来分隔获取规则
-     每段规则可分为3段
-     第一段是类型,如class,id,tag,text,children等, children获取所有子标签,不需要第二段和第三段,text可以根据文本内容获取
-     第二段是名称,text. 第二段为文本内容的一部分
-     第三段是位置,class,tag,id等会获取到多个,所以要加位置
-     如不加位置会获取所有
-     位置正着数从0开始,0是第一个,如为负数则是取倒着数的值,-1为倒数第一个,-2为倒数第二个
-     !是排除,有些位置不符合需要排除用!,后面的序号用:隔开0是第1个,负数为倒数序号,-1最后一个,-2倒数第2个,依次
-     获取列表的最前面加上负号- 可以使列表倒置,有些网站目录列表是倒的,前面加个负号可变为正的
-     @的最后一段为获取内容,如text,textNodes,ownText,href,src,html,all等
-     如需要正则替换在最后加上 ##正则表达式##替换内容，替换内容为空时，第二个##可以省略
-     例:class.odd.0@tag.a.0@text||tag.dd.0@tag.h1@text##全文阅读
-     例:class.odd.0@tag.a.0@text&&tag.dd.0@tag.h1@text##全文阅读
-    ```
-    **2021/07/07**
-      1. 默认规则新增类似`jsonPath`的索引写法 by bushixuanqi
-      * 格式形如 `[index,index, ...]` 或 `[!index,index, ...]` 其中`[!`开头表示筛选方式为排除，`index`可以是单个索引，也可以是区间。
-      * 区间格式为 `start:end` 或 `start:end:step`，其中`start`为`0`可省略，`end`为`-1`可省略。
-      * 索引、区间两端、区间间隔都支持负数
-      * 例如 `tag.div[-1, 3:-2:-10, 2]`
-      * 特殊用法 `tag.div[-1:0]` 可在任意地方让列表反向
-      2. 允许索引作为@分段后每个部分的首规则，此时相当于前面是`children`
-      * `head@.1@text` 与 `head@[1]@text` 与 `head@children[1]@text` 等价
-      3. 添加Umd格式支持 by ag2s20150909
-      4. 修复web页面按键重复监听的bug
-      5. 亮度条往中间移了一点,防止误触
-      6. 添加内置字典
-  
     - 标准规范与实现库 [Package org.jsoup.select, CSS-like element selector](https://jsoup.org/apidocs/org/jsoup/select/Selector.html)
-   
+
   + JSOUP之CSS
     - 语法见https://blog.csdn.net/hou_angela/article/details/80519718
     - 必须以 `@css:` 开头
@@ -122,7 +117,7 @@
 
        - 一般形式，如下所示
 
-         ```
+         ```javsscript
          {
              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36",
              "Accept-Language":"zh-CN,zh;q=0.9"
@@ -133,7 +128,7 @@
 
        - 复杂情况可使用js
 
-         ```
+         ```javsscript
          <js>
          (()=>{
          	var ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
@@ -144,13 +139,38 @@
          ```
          ※其中，`ua`必须保证是`JavaScript`的`String`类型，`JSON.stringify()`才能将`header`转换为字符串。
 
+       - 获取登录后的cookie
+
+         ```
+         java.getCookie("http://baidu.com", null) => userid=1234;pwd=adbcd
+         java.getCookie("http://baidu.com", "userid") => 1234
+         ```
+
+       - 请求头中支持http代理,socks4 socks5代理设置
+
+         ```
+         socks5代理
+         {
+           "proxy":"socks5://127.0.0.1:1080"
+         }
+         http代理
+         {
+           "proxy":"http://127.0.0.1:1080"
+         }
+         支持代理服务器验证
+         {
+           "proxy":"socks5://127.0.0.1:1080@用户名@密码"
+         }
+         //注意:这些请求头是无意义的,会被忽略掉
+         ```
+
          
 
     2. GET请求
 
        - 一般形式如下，charset为utf-8时可省略，无特殊情况不需要请求头和webView，参数webView非空时采用webView加载
 
-         ```
+         ```javsscript
          https://www.baidu.com,{
          	"charset": "gbk",
          	"headers": {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"},
@@ -160,7 +180,7 @@
 
        - 复杂情况可使用js
 
-         ```
+         ```javsscript
          <js>
          	var ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
          	var headers = {"User-Agent": ua};
@@ -179,7 +199,7 @@
 
        - 一般形式如下，body是请求体，charset为utf-8时可省略，无特殊情况不需要请求头和webView，参数webView非空时采用webView加载
 
-         ```
+         ```javsscript
          https://www.baidu.com,{
          	"charset": "gbk",
          	"method": "POST",
@@ -191,7 +211,7 @@
 
        - 复杂情况可使用js
 
-         ```
+         ```javsscript
          <js>
          	var ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
          	var headers = {"User-Agent": ua};
@@ -245,125 +265,188 @@
        - 只调用某个public函数：，例：`io.legado.app.utils.htmlFormat(str)`、`org.jsoup.Jsoup.parse(str)`
        
        - 直接引入java类，如下所示，引入了两个java包，java包的作用域是在`with`的范围内，其内使用java相关语法，最后在作用域外被js调用了作用域内的函数
-    ```
-    var javaImport = new JavaImporter();
-    javaImport.importPackage(
-    	Packages.java.lang,
-    	Packages.java.security
-    );
-    with(javaImport){
-    	function strToMd5By32(str) {
-    		var reStr = null;
-    		var md5 = MessageDigest.getInstance("MD5");
-    		var bytes = md5.digest(String(str).getBytes());
-    		var stringBuffer = new StringBuilder();
-    		bytes.forEach(a=>{
-    			var bt = a & 0xff;
-    			if (bt < 16) {
-    				stringBuffer.append("0");
-    			}
-    			stringBuffer.append(Integer.toHexString(bt));
-    		});
-    		reStr = stringBuffer.toString();
-    		return reStr;
-    	}
-    }
-    strToMd5By32('123')
-    ```
+       
+       ```
+       var javaImport = new JavaImporter();
+       javaImport.importPackage(
+       	Packages.java.lang,
+       	Packages.java.security
+       );
+       with(javaImport){
+       	function strToMd5By32(str) {
+       		var reStr = null;
+       		var md5 = MessageDigest.getInstance("MD5");
+       		var bytes = md5.digest(String(str).getBytes());
+       		var stringBuffer = new StringBuilder();
+       		bytes.forEach(a=>{
+       			var bt = a & 0xff;
+       			if (bt < 16) {
+       				stringBuffer.append("0");
+       			}
+       			stringBuffer.append(Integer.toHexString(bt));
+       		});
+       		reStr = stringBuffer.toString();
+       		return reStr;
+       	}
+       }
+       strToMd5By32('123')
+       ```
+       
+       
+       
+    - 变量
+    
+       ```
+       baseUrl 变量-当前url,String
+       result 变量-上一步的结果
+       book 变量-书籍类,方法见 io.legado.app.data.entities.Book
+       cookie 变量-cookie操作类,方法见 io.legado.app.help.http.CookieStore
+       cache 变量-缓存操作类,方法见 io.legado.app.help.CacheManager
+       chapter 变量-当前目录类,方法见 io.legado.app.data.entities.BookChapter
+       title 变量-当前标题,String
+       src 内容,源码
+       ```
+    
+       
+    
+    - 下面是一些常用的函数，详见[JsExtensions.kt](https://github.com/gedoor/legado/blob/master/app/src/main/java/io/legado/app/help/JsExtensions.kt)
+    
+       ```
+       //访问网络，urlStr为url字符串，返回类型String?
+       java.ajax(urlStr: String)
+       
+       //并发访问网络，urlList为url数组，返回StrResponse?的数组，若要获取body，需使用.body()
+       java.ajaxAll(urlList: Array<String>): Array<StrResponse?>
+       
+       //访问网络，urlStr为url字符串，返回Response<String>，已废弃
+       java.connect(urlStr: String)
+       
+       //文件下载，content为十六进制字符串，url用于生成文件名，返回String文件相对路径
+       java.downloadFile(content: String, url: String)
+       
+       //实现重定向拦截，返回[Connection.Response](https://jsoup.org/apidocs/org/jsoup/Connection.Response.html)
+       java.get(url: String, headers: Map<String, String>)
+       java.post(urlStr: String, body: String, headers: Map<String, String>)
+       
+       //实现cookie读取，返回String
+       java.getCookie(tag: String, key: String?)
+       
+       //base64解码，返回类型String
+       java.base64Decode(str: String)
+       java.base64Decode(str: String, flags: Int)
+       
+       //base64解码，返回类型ByteArray?
+       java.base64DecodeToByteArray(str: String?)
+       java.base64DecodeToByteArray(str: String?, flags: Int)
+       
+       //base64编码，返回类型String?
+       java.base64Encode(str: String)
+       java.base64Encode(str: String, flags: Int)
+           
+       //md5编码，返回类型String?
+       java.md5Encode(str: String)
+       java.md5Encode16(str: String)
+       
+       //格式化时间戳，返回类型String
+       java.timeFormat(timestamp: Long)
+       java.timeFormat(time: String)
+       
+       //utf8编码转gbk编码，返回String
+       java.utf8ToGbk(str: String)
+       
+       //实现字符串的URI编码，enc为编码格式，返回String
+       java.encodeURI(str: String)	//默认enc="UTF-8"
+       java.encodeURI(str: String, enc: String)
+       
+       //html格式化，返回String
+       java.htmlFormat(str: String)
+       
+       //获取本地文件,path为文件的相对路径,返回File
+       java.getFile(path: String)
+       
+       //读取本地文件，返回ByteArray?
+       java.readFile(path: String)
+       
+       //读取本地文本文件，charsetName为编码格式
+       java.readTxtFile(path: String)	//自动识别charsetName不一定准，乱码时请手动指定
+       java.readTxtFile(path: String, charsetName: String)
+       
+       //删除文件或文件夹
+       deleteFile(path: String)
+       
+       //zip文件解压，zipPath为压缩文件路径，返回String解压相对路径，会删除原文件只保留解压后的文件
+       java.unzipFile(zipPath: String)
+       
+       //文件夹内所有文本文件读取，返回内容String，会删除文件夹
+       java.getTxtInFolder(unzipPath: String)
+       
+       //获取网络zip文件中的数据，url为zip文件链接，path为所需获取文件在zip内的路径，返回文件数据String
+       java.getZipStringContent(url: String, path: String)
+       
+       //获取网络zip文件中的数据，url为zip文件链接，path为所需获取文件在zip内的路径，返回文件数据ByteArray?
+       java.getZipByteArrayContent(url: String, path: String)
+       
+       //解析字体,返回字体解析类QueryTTF?
+       java.queryBase64TTF(base64: String?)
+       
+       //str支持url,本地文件,base64,自动判断,自动缓存,返回字体解析类QueryTTF?
+       java.queryTTF(str: String?)
+       
+       //text为包含错误字体的内容，font1为错误的字体，font2为正确的字体，返回字体对应的字
+       java.replaceFont(text: String,font1: QueryTTF?,font2: QueryTTF?)
+       
+       //输出调试日志
+       java.log(msg: String)
+       
+       //AES解码为ByteArray?,str为传入的AES加密数据，key为AES解密key，transformation为AES加密方式，iv为ECB模式的偏移向量
+       java.aesDecodeToByteArray(str: String, key: String, transformation: String, iv: String)
+       
+       //AES解码为String?,str为传入的AES加密数据，key为AES解密key，transformation为AES加密方式，iv为ECB模式的偏移向量
+       java.aesDecodeToString(str: String, key: String, transformation: String, iv: String)
+       
+       //已经base64的AES解码为ByteArray?,str为Base64编码数据，key为AES解密key，transformation为AES加密方式，iv为ECB模式的偏移向量
+       java.aesBase64DecodeToByteArray(str: String, key: String, transformation: String, iv: String)
+       
+       //已经base64的AES解码为String?,str为Base64编码数据，key为AES解密key，transformation为AES加密方式，iv为ECB模式的偏移向量
+       java.aesBase64DecodeToString(str: String, key: String, transformation: String, iv: String)
+       
+       //加密aes为ByteArray?，data为传入的原始数据，key为AES解密key，transformation为AES加密方式，iv为ECB模式的偏移向量
+       java.aesEncodeToByteArray(data: String, key: String, transformation: String, iv: String)
+       
+       //加密aes为String?，data为传入的原始数据，key为AES解密key，transformation为AES加密方式，iv为ECB模式的偏移向量
+       java.aesEncodeToString(data: String, key: String, transformation: String, iv: String)
+       
+       //加密aes后Base64化的ByteArray?，data为传入的原始数据，key为AES解密key，transformation为AES加密方式，iv为ECB模式的偏移向量
+       java.aesEncodeToBase64ByteArray(data: String, key: String, transformation: String, iv: String)
+       
+       //加密aes后Base64化的String?，data为传入的原始数据，key为AES解密key，transformation为AES加密方式，iv为ECB模式的偏移向量
+       java.aesEncodeToBase64String(data: String, key: String, transformation: String, iv: String)
+       
+       /**************以下部分方法由于JAVA不支持参数默认值，调用时不能省略***************/
+       //设置需解析的内容content和baseUrl，返回类型AnalyzeRule
+       java.setContent(content: Any?, baseUrl: String? = this.baseUrl)
+       
+       //输入规则rule和URL标志isUrl获取文本列表，返回类型List<String>?
+       java.getStringList(rule: String, isUrl: Boolean = false)
+       
+       //输入规则rule和URL标志isUrl获取文本，返回类型String
+       java.getString(ruleStr: String?, isUrl: Boolean = false)
+       
+       //输入规则ruleStr获取节点列表，返回类型List<Any>
+       java.getElements(ruleStr: String)
+       
+       ```
+    
+    
+    
++  url添加js参数，解析url时执行，可在访问url时处理url，例：
 
-    - 下面是一些常用的函数/变量
+   ```
+   https://www.baidu.com,{"js":"java.headerMap.put('xxx', 'yyy')"}
+   https://www.baidu.com,{"js":"java.url=java.url+'yyyy'"}
+   ```
 
-    ```
-    //当前页的responseBody
-    result
-    
-    //当前页的URL
-    baseUrl
-    
-    //访问网络，urlStr为url字符串，返回类型String?
-    java.ajax(urlStr: String)
-    
-    //访问网络，urlStr为url字符串，返回Response<String>，已废弃
-    java.connect(urlStr: String)
-    
-    //文件下载，content为十六进制字符串，url用于生成文件名，返回String文件路径
-    java.downloadFile(content: String, url: String)
-    
-    //文件解压，zipPath为压缩文件路径，返回String解压路径，会删除原文件只保留解压后的文件
-    java.unzipFile(zipPath: String)
-    
-    //文件夹内所有文件读取，返回内容String，会删除原文件
-    java.getTxtInFolder(unzipPath: String)
-    
-    //删除文件/文件夹路径，path为路径
-    java.deleteFolder(path: String)
-    
-    //实现重定向拦截，返回[Connection.Response](https://jsoup.org/apidocs/org/jsoup/Connection.Response.html)
-    java.get(url: String, headers: Map<String, String>)
-    java.post(urlStr: String, body: String, headers: Map<String, String>)
-    
-    //实现cookie读取，返回String
-    java.getCookie(tag: String, key: String?)
-    
-    //base64解码，返回类型String
-    java.base64Decode(str: String)
-    java.base64Decode(str: String, flags: Int)
-    
-    //base64解码，返回类型ByteArray?
-    java.base64DecodeToByteArray(str: String?)
-    java.base64DecodeToByteArray(str: String?, flags: Int)
-    
-    //base64编码，返回类型String?
-    java.base64Encode(str: String)
-    java.base64Encode(str: String, flags: Int)
-        
-    //md5编码，返回类型String?
-    java.md5Encode(str: String)
-    java.md5Encode16(str: String)
-    
-    //格式化时间戳，返回类型String
-    java.timeFormat(timestamp: Long)
-    java.timeFormat(time: String)
-    
-    //utf8编码转gbk编码，返回String
-    java.utf8ToGbk(str: String)
-    
-    //实现字符串的URI编码，enc为编码格式，返回String
-    java.encodeURI(str: String)	//默认enc="UTF-8"
-    java.encodeURI(str: String, enc: String)
-    
-    //html格式化，返回String
-    java.htmlFormat(str: String)
-    
-    //读取本地文件，返回ByteArray 
-    java.readFile(path: String)
-    
-    //读取本地文本文件，charsetName为编码格式
-    java.readTxtFile(path: String)	//默认charsetName="UTF-8"
-    java.readTxtFile(path: String, charsetName: String)
-    
-    //解析字体,返回字体解析类QueryTTF?
-    java.queryBase64TTF(base64: String?)
-    java.queryTTF(str: String?)
-    java.replaceFont(text: String,font1: QueryTTF?,font2: QueryTTF?)
-    
-    //输出调试日志
-    java.log(msg: String)
-    
-    /**************以下部分方法由于JAVA不支持参数默认值，调用时不能省略***************/
-    //设置需解析的内容content和baseUrl，返回类型AnalyzeRule
-    java.setContent(content: Any?, baseUrl: String? = this.baseUrl)
-    
-    //输入规则rule和URL标志isUrl获取文本列表，返回类型List<String>?
-    java.getStringList(rule: String, isUrl: Boolean = false)
-    
-    //输入规则rule和URL标志isUrl获取文本，返回类型String
-    java.getString(ruleStr: String?, isUrl: Boolean = false)
-    
-    //输入规则ruleStr获取节点列表，返回类型List<Any>
-    java.getElements(ruleStr: String)
-    
-    ```
+   
 
 
 ### 3、书源之「基本」
@@ -378,20 +461,19 @@
     - 可不填
     - 用于整理源
   + 登录URL(loginUrl)
-    - 可不填
+    - 根据需求，随机应变
     - 用于登录个人账户
   + 书籍URL正则(bookUrlPattern)
     - 可不填
     - 添加网址时，用于识别书源
     
-    - ```
+    - ```javsscript
       例:https?://www.piaotian.com/bookinfo/.*
       ```
     
   + 请求头(header)
-    - 可不填
+    - 根据需求，随机应变
     - 访问网址时使用
-    
 ### 4、书源之「搜索」
   - 搜索地址(url)
 
@@ -430,59 +512,41 @@
       ① `{{page - 1 == 0 ? "": page}}`  
 
       ② `<,{{page}}>`
-    - 格式 架空历史::http://xxxxx
-    - 发现URL可使用`&&`或换行符隔开
+      
+    - 格式一，如： `名称::http://www。baidu.com`，发现URL可使用`&&`或换行符`\n`隔开
+
+    - 格式二，有5个样式属性(layout_flexGrow、layout_flexShrink、layout_alignSelf、layout_flexBasisPercent、layout_wrapBefore)需要了解，详情见[简书](https://www.jianshu.com/p/3c471953e36d)，写法如：
+
+      ```javascript
+       [
+          {
+              "title": "今日限免",
+              "url": "https://app-cdn.jjwxc.net/bookstore/getFullPage?channel=novelfree",
+              "style": {
+                  "layout_flexGrow": 1
+              }
+          },
+          {
+              "title": "频道金榜",
+              "url": "http://app-cdn.jjwxc.net/bookstore/getFullPage?channelBody=%7B%229%22%3A%7B%22offset%22%3A%22<,{{(page-1)*25}}>%22%2C%22limit%22%3A%2225%22%7D%7D&versionCode=148",
+              "style": {
+                  "layout_flexGrow": 0,
+                  "layout_flexShrink": 1,
+                  "layout_alignSelf": "auto",
+                  "layout_flexBasisPercent": -1,
+                  "layout_wrapBefore": true
+              }
+          },
+          {
+              "title": "幻想未来",
+              "url": "http://app-cdn.jjwxc.net/bookstore/getFullPage?channelBody=%7B%2222000023%22%3A%7B%22offset%22%3A%22<,{{(page-1)*25}}>%22%2C%22limit%22%3A%2225%22%7D%7D&versionCode=148"
+          }
+      ]
+      ```
+
+      
 
     - 支持相对URL
-    - json格式
-```json
- [
-    {
-        "title": "今日限免",
-        "url": "https://app-cdn.jjwxc.net/bookstore/getFullPage?channel=novelfree",
-        "style": {
-            "layout_flexGrow": 1
-        }
-    },
-    {
-        "title": "我的收藏",
-        "url": "http://app.jjwxc.org:80/androidapi/incrementFavorite?versionCode=185&token={{java.getCookie(\"http://m.jjwxc.net\",\"sid\")}}&backupTime=&order=1",
-        "style": {
-            "layout_flexGrow": 1
-        }
-    },
-    {
-        "title": "🌸 百合全部 🌸",
-        "url": "https://app-cdn.jjwxc.net/bookstore/getFullPage?channel=bhxs&version=3",
-        "style": {
-            "layout_flexGrow": 1,
-            "layout_flexShrink": 1,
-            "layout_alignSelf": "auto",
-            "layout_flexBasisPercent": -1,
-            "layout_wrapBefore": true
-        }
-    },
-    {
-        "title": "频道金榜",
-        "url": "http://app-cdn.jjwxc.net/bookstore/getFullPage?channelBody=%7B%229%22%3A%7B%22offset%22%3A%22<,{{(page-1)*25}}>%22%2C%22limit%22%3A%2225%22%7D%7D&versionCode=148",
-        "style": {
-            "layout_flexGrow": 0,
-            "layout_flexShrink": 1,
-            "layout_alignSelf": "auto",
-            "layout_flexBasisPercent": -1,
-            "layout_wrapBefore": true
-        }
-    },
-    {
-        "title": "重来一世",
-        "url": "http://app-cdn.jjwxc.net/bookstore/getFullPage?channelBody=%7B%2222000013%22%3A%7B%22offset%22%3A%22<,{{(page-1)*25}}>%22%2C%22limit%22%3A%2225%22%7D%7D&versionCode=148"
-    },
-    {
-        "title": "幻想未来",
-        "url": "http://app-cdn.jjwxc.net/bookstore/getFullPage?channelBody=%7B%2222000023%22%3A%7B%22offset%22%3A%22<,{{(page-1)*25}}>%22%2C%22limit%22%3A%2225%22%7D%7D&versionCode=148"
-    }
-]
-```
 
   - 书籍列表规则(bookList)
   - 书名规则(name)
@@ -524,13 +588,27 @@
       此时，书名规则填`a`，作者规则填`b`，分类规则填`c`，字数规则填`d`，最新章节规则填`e`，简介规则`f`，封面规则填`g`，目录URL规则填`h`
     
   - 书名规则(name)
+
   - 作者规则(author)
+
   - 分类规则(kind)
+
   - 字数规则(wordCount)
+
   - 最新章节规则(lastChapter)
+
   - 简介规则(intro)
+
   - 封面规则(coverUrl)
+
   - 目录URL规则(tocUrl)
+
+      - 只支持单个url
+
+  - 允许修改书名作者(canReName)
+
+      - 规则不为空且详情页书名不为空，使用详情页中的作者。否则，使用搜索页中的书名
+      - 规则不为空且详情页作者不为空，使用详情页中的作者。否则，使用搜索页中的作者
 
 ### 7、书源之「目录」
   - 目录列表规则(chapterList)
@@ -546,14 +624,78 @@
     - 可调用java.timeFormat(timestamp: Long)将时间戳转为yyyy/MM/dd HH:mm格式的时间
   - 目录下一页规则(nextTocUrl)   
     
-    - 可返回list或者string
+    - 支持单个url
+    - 支持url数组
     - js中返回 `[]`或 `null`或 `""`时停止加载下一页
 
 
 ### 8、书源之「正文」
   + 正文规则(content)
 
-    - 如下示例，在详情页(目录页)和正文使用webView加载，例：
+      + 正文图片链接支持修改headers
+
+        ```
+        let options = {
+        "headers": {"User-Agent": "xxxx","Referrer":baseUrl,"Cookie":"aaa=vbbb;"}
+        };
+        '<img src="'+src+","+JSON.stringify(options)+'">'
+        ```
+
+    + book对象的可用属性
+
+      + 使用方法: 在js中或`{{}}`中使用`book.属性`的方式即可获取，如在正文内容后加上` ##{{book.name+"正文卷"+title}}` 可以净化 书名+正文卷+章节名称（如：我是大明星正文卷第二章我爸是豪门总裁） 这一类的字符
+
+      ```
+      bookUrl // 详情页Url(本地书源存储完整文件路径)
+      tocUrl // 目录页Url (toc=table of Contents)
+      origin // 书源URL(默认BookType.local)
+      originName //书源名称 or 本地书籍文件名
+      name // 书籍名称(书源获取)
+      author // 作者名称(书源获取)
+      kind // 分类信息(书源获取)
+      customTag // 分类信息(用户修改)
+      coverUrl // 封面Url(书源获取)
+      customCoverUrl // 封面Url(用户修改)
+      intro // 简介内容(书源获取)
+      customIntro // 简介内容(用户修改)
+      charset // 自定义字符集名称(仅适用于本地书籍)
+      type // 0:text 1:audio
+      group // 自定义分组索引号
+      latestChapterTitle // 最新章节标题
+      latestChapterTime // 最新章节标题更新时间
+      lastCheckTime // 最近一次更新书籍信息的时间
+      lastCheckCount // 最近一次发现新章节的数量
+      totalChapterNum // 书籍目录总数
+      durChapterTitle // 当前章节名称
+      durChapterIndex // 当前章节索引
+      durChapterPos // 当前阅读的进度(首行字符的索引位置)
+      durChapterTime // 最近一次阅读书籍的时间(打开正文的时间)
+      canUpdate // 刷新书架时更新书籍信息
+      order // 手动排序
+      originOrder //书源排序
+      variable // 自定义书籍变量信息(用于书源规则检索书籍信息)
+      ```
+
+    + chapter对象的可用属性
+
+      + 使用方法: 在js中或`{{}}`中使用`chapter.属性`的方式即可获取，如在正文内容后加上`##{{chapter.title+chapter.index}}`可以净化 章节标题+序号(如 第二章 天仙下凡2) 这一类的字符
+
+      ```
+      url // 章节地址
+      title // 章节标题
+      baseUrl //用来拼接相对url
+      bookUrl // 书籍地址
+      index // 章节序号
+      resourceUrl // 音频真实URL
+      tag //
+      start // 章节起始位置
+      end // 章节终止位置
+      variable //变量
+      ```
+
+      
+
+    + 如下示例，在详情页(目录页)和正文使用webView加载，例：
 
       ```
       {
@@ -593,12 +735,15 @@
         "weight": 0
       }
       ```
-      
+
       
 
   + 正文下一页URL规则(nextContentUrl)
 
-  + webJs
+    - 支持单个url
+    - 支持url数组
+
+  + WebViewJs(webJs)
     
     - 用于模拟鼠标点击等操作，必须有返回值（不为空，表示webjs执行成功，否则会无限循环），返回值会用于资源正则或正文中
     - 举个栗子，在webJs中执行了`getDecode()`，使正文部分解密：
@@ -613,7 +758,7 @@
         "customOrder": 11,
         "enabled": false,
         "enabledExplore": false,
-        "exploreUrl": "男生书库::/shuku/0_1_0_0_0_{{page}}_0_0\n男频连载::/shuku/0_2_0_0_0_{{page}}_0_0\n男频完结::/shuku/0_3_0_0_0_{{page}}_0_0\n添加时间::/shuku/0_1_0_0_8_{{page}}_0_0\n总点击榜::/shuku/0_1_0_0_2_{{page}}_0_0\n月点击榜::/shuku/0_1_0_0_5_{{page}}_0_0\n周点击榜::/shuku/0_1_0_0_4_{{page}}_0_0\n总推荐榜::/shuku/0_1_0_0_1_{{page}}_0_0\n月推荐榜::/shuku/0_1_0_0_7_{{page}}_0_0\n周推荐榜::/shuku/0_1_0_0_6_{{page}}_0_0\n总收藏榜::/shuku/0_1_0_0_3_{{page}}_0_0\n总字数榜::/shuku/0_1_0_0_9_{{page}}_0_0\n玄幻奇幻::/shuku/1_1_0_0_0_{{page}}_0_0\n东方玄幻::/shuku/1_1_0_11_0_{{page}}_0_0\n异世大陆::/shuku/1_1_0_12_0_{{page}}_0_0\n史诗奇幻::/shuku/1_1_0_13_0_{{page}}_0_0\n异类兽族::/shuku/1_1_0_14_0_{{page}}_0_0\n历史神话::/shuku/1_1_0_15_0_{{page}}_0_0\n王朝争霸::/shuku/1_1_0_16_0_{{page}}_0_0\n高武世界::/shuku/1_1_0_17_0_{{page}}_0_0\n剑与魔法::/shuku/1_1_0_18_0_{{page}}_0_0\n二次元　::/shuku/1_1_0_19_0_{{page}}_0_0\n武侠仙侠::/shuku/2_1_0_0_0_{{page}}_0_0\n古典仙侠::/shuku/2_1_0_21_0_{{page}}_0_0\n修真文明::/shuku/2_1_0_22_0_{{page}}_0_0\n现代修真::/shuku/2_1_0_23_0_{{page}}_0_0\n神话修真::/shuku/2_1_0_24_0_{{page}}_0_0\n传统武侠::/shuku/2_1_0_25_0_{{page}}_0_0\n浪子异侠::/shuku/2_1_0_26_0_{{page}}_0_0\n国术武技::/shuku/2_1_0_27_0_{{page}}_0_0\n武侠幻想::/shuku/2_1_0_28_0_{{page}}_0_0\n幻想修仙::/shuku/2_1_0_29_0_{{page}}_0_0\n都市青春::/shuku/3_1_0_0_0_{{page}}_0_0\n都市生活::/shuku/3_1_0_31_0_{{page}}_0_0\n官场沉浮::/shuku/3_1_0_32_0_{{page}}_0_0\n娱乐明星::/shuku/3_1_0_33_0_{{page}}_0_0\n乡土小说::/shuku/3_1_0_34_0_{{page}}_0_0\n异术超能::/shuku/3_1_0_35_0_{{page}}_0_0\n现实百态::/shuku/3_1_0_36_0_{{page}}_0_0\n校园青春::/shuku/3_1_0_37_0_{{page}}_0_0\n历史军事::/shuku/4_1_0_0_0_{{page}}_0_0\n架空历史::/shuku/4_1_0_41_0_{{page}}_0_0\n上古先秦::/shuku/4_1_0_42_0_{{page}}_0_0\n秦汉三国::/shuku/4_1_0_43_0_{{page}}_0_0\n两晋隋唐::/shuku/4_1_0_44_0_{{page}}_0_0\n五代十国::/shuku/4_1_0_45_0_{{page}}_0_0\n两宋元明::/shuku/4_1_0_46_0_{{page}}_0_0\n清史民国::/shuku/4_1_0_47_0_{{page}}_0_0\n外国历史::/shuku/4_1_0_48_0_{{page}}_0_0\n历史传记::/shuku/4_1_0_49_0_{{page}}_0_0\n军事战争::/shuku/4_1_0_410_0_{{page}}_0_0\n抗战烽火::/shuku/4_1_0_411_0_{{page}}_0_0\n战争幻想::/shuku/4_1_0_412_0_{{page}}_0_0\n科幻灵异::/shuku/5_1_0_0_0_{{page}}_0_0\n未来世界::/shuku/5_1_0_51_0_{{page}}_0_0\n星际文明::/shuku/5_1_0_52_0_{{page}}_0_0\n宇宙练功::/shuku/5_1_0_53_0_{{page}}_0_0\n超级科技::/shuku/5_1_0_54_0_{{page}}_0_0\n时空穿梭::/shuku/5_1_0_55_0_{{page}}_0_0\n进化变异::/shuku/5_1_0_56_0_{{page}}_0_0\n末世危机::/shuku/5_1_0_57_0_{{page}}_0_0\n灵异鬼怪::/shuku/5_1_0_58_0_{{page}}_0_0\n恐怖惊悚::/shuku/5_1_0_59_0_{{page}}_0_0\n悬疑侦探::/shuku/5_1_0_510_0_{{page}}_0_0\n寻墓探险::/shuku/5_1_0_511_0_{{page}}_0_0\n风水秘术::/shuku/5_1_0_512_0_{{page}}_0_0\n游戏竞技::/shuku/6_1_0_0_0_{{page}}_0_0\n虚拟网游::/shuku/6_1_0_61_0_{{page}}_0_0\n游戏异界::/shuku/6_1_0_61_0_{{page}}_0_0\n体育竞技::/shuku/6_1_0_61_0_{{page}}_0_0\n游戏生涯::/shuku/6_1_0_61_0_{{page}}_0_0\n电子竞技::/shuku/6_1_0_61_0_{{page}}_0_0\n弈林春秋::/shuku/6_1_0_61_0_{{page}}_0_0\n女生书库::/shuku/9_1_0_0_0_{{page}}_0_0\n女频连载::/shuku/9_2_0_0_0_{{page}}_0_0\n女频完结::/shuku/9_3_0_0_0_{{page}}_0_0\n添加时间::/shuku/9_1_0_0_8_{{page}}_0_0\n总点击榜::/shuku/9_1_0_0_2_{{page}}_0_0\n月点击榜::/shuku/9_1_0_0_5_{{page}}_0_0\n周点击榜::/shuku/9_1_0_0_4_{{page}}_0_0\n总推荐榜::/shuku/9_1_0_0_1_{{page}}_0_0\n月推荐榜::/shuku/9_1_0_0_7_{{page}}_0_0\n周推荐榜::/shuku/9_1_0_0_6_{{page}}_0_0\n总收藏榜::/shuku/9_1_0_0_3_{{page}}_0_0\n总字数榜::/shuku/9_1_0_0_9_{{page}}_0_0\n豪门总裁::/shuku/9_1_0_91_0_{{page}}_0_0\n都市生活::/shuku/9_1_0_92_0_{{page}}_0_0\n青春校园::/shuku/9_1_0_93_0_{{page}}_0_0\n都市异能::/shuku/9_1_0_94_0_{{page}}_0_0\n星际科幻::/shuku/9_1_0_95_0_{{page}}_0_0\n游戏竞技::/shuku/9_1_0_96_0_{{page}}_0_0\n灵异推理::/shuku/9_1_0_97_0_{{page}}_0_0\n婚恋情缘::/shuku/9_1_0_98_0_{{page}}_0_0\n官场沉浮::/shuku/9_1_0_99_0_{{page}}_0_0\n娱乐明星::/shuku/9_1_0_910_0_{{page}}_0_0\n穿越架空::/shuku/9_1_0_911_0_{{page}}_0_0\n经商种田::/shuku/9_1_0_912_0_{{page}}_0_0\n玄幻仙侠::/shuku/9_1_0_913_0_{{page}}_0_0\n历史军事::/shuku/9_1_0_914_0_{{page}}_0_0\n宫闱宅斗::/shuku/9_1_0_915_0_{{page}}_0_0\n重生复仇::/shuku/9_1_0_916_0_{{page}}_0_0\n豪门恩怨::/shuku/9_1_0_917_0_{{page}}_0_0",
+        "exploreUrl": "男生书库::/shuku/0_1_0_0_0_{{page}}_0_0\n男频连载::/shuku/0_2_0_0_0_{{page}}_0_0",
         "lastUpdateTime": 0,
         "loginUrl": "",
         "ruleBookInfo": {
@@ -669,13 +814,13 @@
     
     - 用于嗅探
     
-    - 一般情况下的无脑教程如下＿φ( °-°)/ 
+    - 一般情况下的无脑教程如下
     
-      - 章节链接后面加 `,{"webView":true}`٩(๑❛ᴗ❛๑)۶，不要洒敷敷的写成 `tag.a@href,{"webView":true}`或`$.link,{"webView":true}`
-      - 在有嗅探功能的浏览器（如：via、x浏览器等）中，输入章节链接。注意(｡•́︿•̀｡) `千万别带,{"webView":true}` (╯﹏╰)b
+      - 章节链接后面加 `,{"webView":true}`，不要洒敷敷的写成 `tag.a@href,{"webView":true}`或`$.link,{"webView":true}`，正确写法如:`tag.a@href##$##{"webView":true}`,`{{@@tag.a@href}},{"webView":true}`,`tag.a@href@js:result+',{"webView":true}'`等
+      - 在有嗅探功能的浏览器（如：via、x浏览器等）中，输入章节链接。注意 `千万别带,{"webView":true}`
       - 媒体开始播放后使用浏览器的嗅探功能，查看资源的链接
       - 在资源正则里填写资源链接的正则，一般写`.*\.(mp3|mp4).*`这个就可以了
-      - 最后在正文填写 `<js>result</js>`ヾ(@^▽^@)ノ
+      - 最后在正文填写 `<js>result</js>`
     
     - 如下示例，在正文嗅探mp3和mp4的资源：
     
@@ -719,7 +864,6 @@
       ```
       
       
-    
 ### 9、补充说明
 
 - 显示js的报错信息
@@ -820,10 +964,14 @@
       "searchUrl": "/modules/article/search.php?searchkey={{key}}&submit=&page={{page}},{\n  \"charset\": \"gbk\"\n}",
       "weight": 0
     }
-  ```
+    ```
+
+    
+
   
-- 书源二
-  
+
+  - 书源二
+
     ```
     {
       "bookSourceComment": "",
@@ -871,9 +1019,11 @@
       "weight": 0
     }
     ```
-  
+
+    
+
   - 书源三
-  
+
     ```
     {
       "bookSourceComment": "",
