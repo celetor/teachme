@@ -446,6 +446,21 @@
    https://www.baidu.com,{"js":"java.url=java.url+'yyyy'"}
    ```
 
++  url全部参数，详见[AnalyzeUrl.kt](https://github.com/gedoor/legado/blob/master/app/src/main/java/io/legado/app/model/analyzeRule/AnalyzeUrl.kt)
+
+   ```kotlin
+   data class UrlOption(
+       val method: String?,
+       val charset: String?,
+       val webView: Any?,
+       val headers: Any?,
+       val body: Any?,
+       val type: String?,
+       val js: String?,
+       val retry: Int = 0	//重试次数
+   )
+   ```
+
    
 
 
