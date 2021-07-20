@@ -83,9 +83,9 @@
     
     - 必须以 `:` 开头
     
-    - 教程 [veedrin/horseshoe 2018-10 | Regex专题](https://github.com/veedrin/horseshoe#2018-10--regex%E4%B8%93%E9%A2%98)
+    - 教程 [Regex专题](https://github.com/veedrin/horseshoe#2018-10--regex%E4%B8%93%E9%A2%98)
       
-      [语法](https://github.com/veedrin/horseshoe/blob/master/regex/%E8%AF%AD%E6%B3%95.md)   [方法](https://github.com/veedrin/horseshoe/blob/master/regex/%E6%96%B9%E6%B3%95.md)  [引擎](https://github.com/veedrin/horseshoe/blob/master/regex/%E5%BC%95%E6%93%8E.md)
+      [语法](https://github.com/veedrin/horseshoe/blob/master/regex/%E8%AF%AD%E6%B3%95.md)、[方法](https://github.com/veedrin/horseshoe/blob/master/regex/%E6%96%B9%E6%B3%95.md)、[引擎](https://github.com/veedrin/horseshoe/blob/master/regex/%E5%BC%95%E6%93%8E.md)
       
     - 例子见最后的【书源一】的目录页规则，最前面的`-`表示目录倒序，以及【书源二】的目录页规则
     
@@ -146,14 +146,14 @@
        - 获取登录后的cookie
 
          ```javascript
-  java.getCookie("http://baidu.com", null) => userid=1234;pwd=adbcd
+      java.getCookie("http://baidu.com", null) => userid=1234;pwd=adbcd
          java.getCookie("http://baidu.com", "userid") => 1234
          ```
        
        - 请求头中支持http代理,socks4 socks5代理设置
 
          ```javascript
-  // socks5代理
+      // socks5代理
          {
            "proxy":"socks5://127.0.0.1:1080"
          }
