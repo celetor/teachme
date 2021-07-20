@@ -69,7 +69,7 @@
     - 语法见 [XPath教程-入门](https://www.w3school.com.cn/xpath/index.asp)、[XPath教程-基础](https://zhuanlan.zhihu.com/p/29436838)、[XPath教程-高级](https://zhuanlan.zhihu.com/p/32187820)、[XPath库的说明](https://github.com/zhegexiaohuozi/JsoupXpath/blob/master/README.md)
     - 必须以 `@XPath:` 或 `//` 开头
     - 标准规范 [W3C XPATH 1.0](https://www.w3.org/TR/1999/REC-xpath-19991116/) 
-    - 实现库 [hegexiaohuozi/JsoupXpath](https://github.com/zhegexiaohuozi/JsoupXpath)
+    - 实现库 [zhegexiaohuozi/JsoupXpath](https://github.com/zhegexiaohuozi/JsoupXpath)
    - 例子见最后的【书源二】的搜索页、详情页和正文页规则，以及目录页的下一页规则
 
   + JavaScript
