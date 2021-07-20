@@ -123,7 +123,7 @@
 
        - 一般形式，如下所示
 
-         ```javsscript
+         ```javascript
          {
              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36",
              "Accept-Language":"zh-CN,zh;q=0.9"
@@ -134,61 +134,58 @@
 
        - 复杂情况可使用js
 
-         ```javsscript
-         <js>
+         ```javascript
          (()=>{
          	var ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
          	var headers = {"User-Agent": ua};
          	return JSON.stringify(headers);
          })()
-         </js>
          ```
          ※其中，`ua`必须保证是`JavaScript`的`String`类型，`JSON.stringify()`才能将`header`转换为字符串。
-
+         
        - 获取登录后的cookie
 
-         ```
-         java.getCookie("http://baidu.com", null) => userid=1234;pwd=adbcd
+         ```javascript
+  java.getCookie("http://baidu.com", null) => userid=1234;pwd=adbcd
          java.getCookie("http://baidu.com", "userid") => 1234
          ```
-
+       
        - 请求头中支持http代理,socks4 socks5代理设置
 
-         ```
-         socks5代理
+         ```javascript
+  // socks5代理
          {
            "proxy":"socks5://127.0.0.1:1080"
          }
-         http代理
+         // http代理
          {
            "proxy":"http://127.0.0.1:1080"
          }
-         支持代理服务器验证
+         // 支持代理服务器验证
          {
            "proxy":"socks5://127.0.0.1:1080@用户名@密码"
          }
-         //注意:这些请求头是无意义的,会被忽略掉
+         // 注意:这些请求头是无意义的,会被忽略掉
          ```
-
+       
          
 
     2. GET请求
 
        - 一般形式如下，charset为utf-8时可省略，无特殊情况不需要请求头和webView，参数webView非空时采用webView加载
 
-         ```javsscript
-         https://www.baidu.com,{
+         ```javascript
+     https://www.baidu.com,{
          	"charset": "gbk",
          	"headers": {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"},
          	"webView": true
          }
          ```
-
+    
        - 复杂情况可使用js
 
-         ```javsscript
-         <js>
-         	var ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
+         ```javascript
+     	var ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
          	var headers = {"User-Agent": ua};
          	var option = {
          		"charset": "gbk",
@@ -196,32 +193,30 @@
          		"webView": true
          	};
          	"https://www.baidu.com," + JSON.stringify(option)
-         </js>
          ```
-
          
-
+         
+    
     3. POST请求
 
        - 一般形式如下，body是请求体，charset为utf-8时可省略，无特殊情况不需要请求头和webView，参数webView非空时采用webView加载
 
-         ```javsscript
-         https://www.baidu.com,{
+         ```javascript
+     https://www.baidu.com,{
          	"charset": "gbk",
-         	"method": "POST",
+     	"method": "POST",
          	"body": "bid=10086",
          	"headers": {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"},
          	"webView": true
          }
          ```
-
+    
        - 复杂情况可使用js
-
-         ```javsscript
-         <js>
-         	var ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
+    
+         ```javascript
+     	var ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36";
          	var headers = {"User-Agent": ua};
-         	var body = "bid="+"10086";
+     	var body = "bid="+"10086";
          	var option = {
          		"charset": "gbk",
          		"method": "POST",
@@ -230,12 +225,11 @@
          		"webView": true
          	};
          	"https://www.baidu.com," + JSON.stringify(option)
-         </js>
          ```
          ※其中，`body`必须保证是`JavaScript`的`String`类型，变量是计算得到的尽量都用`String()`强转一下类型。
-
          
-
+         
+    
   + 变量的put与get
 
     - `@put`与`@get`
@@ -272,7 +266,7 @@
        
        - 直接引入java类，如下所示，引入了两个java包，java包的作用域是在`with`的范围内，其内使用java相关语法，最后在作用域外被js调用了作用域内的函数
        
-       ```
+       ```javascript
        var javaImport = new JavaImporter();
        javaImport.importPackage(
        	Packages.java.lang,
@@ -302,22 +296,22 @@
        
     - 变量
     
-       ```
-       baseUrl 变量-当前url,String
-       result 变量-上一步的结果
-       book 变量-书籍类,方法见 io.legado.app.data.entities.Book
-       cookie 变量-cookie操作类,方法见 io.legado.app.help.http.CookieStore
-       cache 变量-缓存操作类,方法见 io.legado.app.help.CacheManager
-       chapter 变量-当前目录类,方法见 io.legado.app.data.entities.BookChapter
-       title 变量-当前标题,String
-       src 内容,源码
+       ```javascript
+       baseUrl		// 变量-当前url,String
+       result		// 变量-上一步的结果
+       book		// 变量-书籍类,方法见 io.legado.app.data.entities.Book
+       cookie		// 变量-cookie操作类,方法见 io.legado.app.help.http.CookieStore
+       cache		// 变量-缓存操作类,方法见 io.legado.app.help.CacheManager
+       chapter		// 变量-当前目录类,方法见 io.legado.app.data.entities.BookChapter
+       title		// 变量-当前标题,String
+       src			// 内容,源码
        ```
     
        
     
     - 下面是一些常用的函数，详见[JsExtensions.kt](https://github.com/gedoor/legado/blob/master/app/src/main/java/io/legado/app/help/JsExtensions.kt)
     
-       ```
+       ```javascript
        //访问网络，urlStr为url字符串，返回类型String?
        java.ajax(urlStr: String)
        
@@ -447,7 +441,7 @@
     
 +  url添加js参数，解析url时执行，可在访问url时处理url，例：
 
-   ```
+   ```javascript
    https://www.baidu.com,{"js":"java.headerMap.put('xxx', 'yyy')"}
    https://www.baidu.com,{"js":"java.url=java.url+'yyyy'"}
    ```
@@ -589,8 +583,7 @@
 
     - js的返回值需要是json对象，例：
 
-      ```
-      <js>
+      ```javascript
       (function(){
       	return {
       		a:"圣墟",
@@ -603,7 +596,6 @@
       		h:"https://m.qidian.com/book/1004608738"
       	};
       })()
-      </js>
       ```
       
       此时，书名规则填`a`，作者规则填`b`，分类规则填`c`，字数规则填`d`，最新章节规则填`e`，简介规则`f`，封面规则填`g`，目录URL规则填`h`
@@ -655,7 +647,7 @@
 
       + 正文图片链接支持修改headers
 
-        ```
+        ```javascript
         let options = {
         "headers": {"User-Agent": "xxxx","Referrer":baseUrl,"Cookie":"aaa=vbbb;"}
         };
@@ -666,59 +658,59 @@
 
       + 使用方法: 在js中或`{{}}`中使用`book.属性`的方式即可获取，如在正文内容后加上` ##{{book.name+"正文卷"+title}}` 可以净化 书名+正文卷+章节名称（如：我是大明星正文卷第二章我爸是豪门总裁） 这一类的字符
 
-      ```
-      bookUrl // 详情页Url(本地书源存储完整文件路径)
-      tocUrl // 目录页Url (toc=table of Contents)
-      origin // 书源URL(默认BookType.local)
-      originName //书源名称 or 本地书籍文件名
-      name // 书籍名称(书源获取)
-      author // 作者名称(书源获取)
-      kind // 分类信息(书源获取)
-      customTag // 分类信息(用户修改)
-      coverUrl // 封面Url(书源获取)
-      customCoverUrl // 封面Url(用户修改)
-      intro // 简介内容(书源获取)
-      customIntro // 简介内容(用户修改)
-      charset // 自定义字符集名称(仅适用于本地书籍)
-      type // 0:text 1:audio
-      group // 自定义分组索引号
-      latestChapterTitle // 最新章节标题
-      latestChapterTime // 最新章节标题更新时间
-      lastCheckTime // 最近一次更新书籍信息的时间
-      lastCheckCount // 最近一次发现新章节的数量
-      totalChapterNum // 书籍目录总数
-      durChapterTitle // 当前章节名称
-      durChapterIndex // 当前章节索引
-      durChapterPos // 当前阅读的进度(首行字符的索引位置)
-      durChapterTime // 最近一次阅读书籍的时间(打开正文的时间)
-      canUpdate // 刷新书架时更新书籍信息
-      order // 手动排序
-      originOrder //书源排序
-      variable // 自定义书籍变量信息(用于书源规则检索书籍信息)
+      ```javascript
+      bookUrl				// 详情页Url(本地书源存储完整文件路径)
+      tocUrl				// 目录页Url (toc=table of Contents)
+      origin				// 书源URL(默认BookType.local)
+      originName			// 书源名称 or 本地书籍文件名
+      name				// 书籍名称(书源获取)
+      author				// 作者名称(书源获取)
+      kind				// 分类信息(书源获取)
+      customTag			// 分类信息(用户修改)
+      coverUrl			// 封面Url(书源获取)
+      customCoverUrl		// 封面Url(用户修改)
+      intro				// 简介内容(书源获取)
+      customIntro			// 简介内容(用户修改)
+      charset				// 自定义字符集名称(仅适用于本地书籍)
+      type				// 0:text 1:audio
+      group				// 自定义分组索引号
+      latestChapterTitle	// 最新章节标题
+      latestChapterTime	// 最新章节标题更新时间
+      lastCheckTime		// 最近一次更新书籍信息的时间
+      lastCheckCount		// 最近一次发现新章节的数量
+      totalChapterNum		// 书籍目录总数
+      durChapterTitle		// 当前章节名称
+      durChapterIndex		// 当前章节索引
+      durChapterPos		// 当前阅读的进度(首行字符的索引位置)
+      durChapterTime		// 最近一次阅读书籍的时间(打开正文的时间)
+      canUpdate			// 刷新书架时更新书籍信息
+      order				// 手动排序
+      originOrder			//书源排序
+      variable			// 自定义书籍变量信息(用于书源规则检索书籍信息)
       ```
 
     + chapter对象的可用属性
 
       + 使用方法: 在js中或`{{}}`中使用`chapter.属性`的方式即可获取，如在正文内容后加上`##{{chapter.title+chapter.index}}`可以净化 章节标题+序号(如 第二章 天仙下凡2) 这一类的字符
 
-      ```
-      url // 章节地址
-      title // 章节标题
-      baseUrl //用来拼接相对url
-      bookUrl // 书籍地址
-      index // 章节序号
+      ```javascript
+      url			// 章节地址
+      title		// 章节标题
+      baseUrl		// 用来拼接相对url
+      bookUrl		// 书籍地址
+      index		// 章节序号
       resourceUrl // 音频真实URL
-      tag //
-      start // 章节起始位置
-      end // 章节终止位置
-      variable //变量
+      tag			// 章节信息
+      start		// 章节起始位置
+      end			// 章节终止位置
+      variable	// 变量
       ```
 
       
 
     + 如下示例，在详情页(目录页)和正文使用webView加载，例：
 
-      ```
+      ```javascript
       {
         "bookSourceComment": "",
         "bookSourceGroup": "  有声",
@@ -769,7 +761,7 @@
     - 用于模拟鼠标点击等操作，必须有返回值（不为空，表示webjs执行成功，否则会无限循环），返回值会用于资源正则或正文中
     - 举个栗子，在webJs中执行了`getDecode()`，使正文部分解密：
 
-    ```
+    ```javascript
       {
         "bookSourceGroup": "阅读3.0书源合集",
         "bookSourceName": "🔥斋书苑",
@@ -845,7 +837,7 @@
     
     - 如下示例，在正文嗅探mp3和mp4的资源：
     
-      ```
+      ```javascript
       {
         "bookSourceComment": "",
         "bookSourceGroup": "  有声",
@@ -889,7 +881,7 @@
 
 - 显示js的报错信息
 
-  ```
+  ```javascript
   (function(result){
       try{
             // 处理result
@@ -938,7 +930,7 @@
 
   - 书源一
 
-    ```
+    ```javascript
     {
       "bookSourceComment": "",
       "bookSourceGroup": "CSS; 正则",
@@ -993,7 +985,7 @@
 
   - 书源二
 
-    ```
+    ```javascript
     {
       "bookSourceComment": "",
       "bookSourceGroup": "XPath; 正则",
@@ -1045,7 +1037,7 @@
 
   - 书源三
 
-    ```
+    ```javascript
     {
       "bookSourceComment": "",
       "bookSourceGroup": "JSon",
@@ -1081,4 +1073,3 @@
       "weight": 0
     }
     ```
-
